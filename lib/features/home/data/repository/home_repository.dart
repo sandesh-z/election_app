@@ -1,5 +1,4 @@
 import 'package:election_app/core/exceptions/exceptions.dart';
-import 'package:election_app/features/home/data/data_source/remote_pradesh_data_impl.dart';
 import 'package:election_app/features/home/data/models/HomePageData/home_page_data.dart';
 import 'package:election_app/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';

@@ -1,8 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:election_app/features/home/domain/entities/pradesh_name/pradesh_data.dart';
-
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../pradesh_data/pradesh_data.dart';
+import '../pradesh_details/pradesh_name.dart';
 
 part 'pradesh_with_type.g.dart';
 
@@ -12,7 +13,7 @@ class PradeshWithType extends Equatable {
   final String type;
 
   @JsonKey(name: "data")
-  final List<PradeshData> data;
+  final List<PradeshName> data;
   PradeshWithType({
     required this.type,
     required this.data,

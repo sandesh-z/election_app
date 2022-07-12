@@ -10,7 +10,7 @@ PradeshWithType _$PradeshWithTypeFromJson(Map<String, dynamic> json) =>
     PradeshWithType(
       type: json['type'] as String,
       data: (json['data'] as List<dynamic>)
-          .map((e) => PradeshData.fromJson(e as Map<String, dynamic>))
+          .map((e) => PradeshName.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

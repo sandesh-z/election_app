@@ -1,5 +1,9 @@
+import 'package:election_app/features/home/data/data_source/remote_pradesh_data_impl.dart';
 import 'package:election_app/features/home/presentation/pages/componets_widgets.dart';
+import 'package:election_app/injection.dart';
 import 'package:flutter/material.dart';
+
+import '../../data/data_source/remote_pradesh_data.dart';
 
 class ElectionHomePage extends StatefulWidget {
   ElectionHomePage({Key? key}) : super(key: key);
@@ -46,7 +50,18 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
           textFieldWithBoX("प्रदेश"),
           textFieldWithBoX("जिल्ला"),
           textFieldWithBoX("नगरपालिका वा गाउँपालिका"),
-          textFieldWithBoX("खोज्नुहोस्")
+          textFieldWithBoX("खोज्नुहोस्"),
+          // TextButton(
+          //     onPressed: () async {
+          //       final datasource = getIt<RemotePradeshNameDataSource>();
+          //       final data = await datasource.getHomeResponse();
+          //       print(data);
+
+          //       print(data.items[0]["data"].length);
+          //       print(data.items[1]["data"].length);
+          //       print(data.items[2]["data"].length);
+          //     },
+          //     child: const Text("Call Api"))
         ],
       ),
     );

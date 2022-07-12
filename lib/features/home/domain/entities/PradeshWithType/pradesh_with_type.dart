@@ -2,7 +2,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../pradesh_data/pradesh_data.dart';
 import '../pradesh_details/pradesh_name.dart';
 
 part 'pradesh_with_type.g.dart';

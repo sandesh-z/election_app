@@ -4,7 +4,7 @@ part 'home_response.g.dart';
 
 @JsonSerializable()
 class HomeResponse extends Equatable {
-  // @JsonKey(name: "data")
+  @JsonKey(name: "data")
   final List<dynamic> items;
   HomeResponse({
     required this.items,

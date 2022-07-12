@@ -7,10 +7,10 @@ part of 'home_response.dart';
 // **************************************************************************
 
 HomeResponse _$HomeResponseFromJson(Map<String, dynamic> json) => HomeResponse(
-      items: json['items'] as List<dynamic>,
+      items: json['data'] as List<dynamic>,
     );
 
 Map<String, dynamic> _$HomeResponseToJson(HomeResponse instance) =>
     <String, dynamic>{
-      'items': instance.items,
+      'data': instance.items,
     };

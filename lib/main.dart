@@ -1,8 +1,10 @@
+import 'package:election_app/injection.dart';
 import 'package:flutter/material.dart';
 
 import 'features/home/presentation/pages/election_homepage.dart';
 
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 

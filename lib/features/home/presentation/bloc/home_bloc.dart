@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../../../core/models/no_params.dart';
 import '../../../../injection.dart';
+import '../../data/models/HomePageData/home_page_data.dart';
 
 part 'home_bloc.freezed.dart';
 part 'home_event.dart';
@@ -21,7 +22,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final usecase = getIt<GetHomePageDataUseCase>();
     final result = await usecase(NoParams());
 
-    result.fold((l) => HomeState.loadFailure,
-        (r) => HomeState.loadSuccess(homepagedata: r));
+    emit(result.fold((l) => HomeState.loadFailure(),
+        (r) => HomeState.loadSuccess(homepagedata: r)));
   }
 }

@@ -4,7 +4,9 @@ import 'package:election_app/core/models/no_params.dart';
 import 'package:election_app/core/usecases/usecase.dart';
 import 'package:election_app/features/home/data/models/HomePageData/home_page_data.dart';
 import 'package:election_app/features/home/domain/repository/home_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class GetHomePageDataUseCase
     extends UseCase<ApiFailure, HomePageData, NoParams> {
   HomeRepository homeRepository;

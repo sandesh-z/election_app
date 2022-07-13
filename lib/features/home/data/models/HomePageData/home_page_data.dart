@@ -21,26 +21,25 @@ class HomePageData extends Equatable {
     PradeshWithType? pradesh;
     DistrictWithType? district;
     MunicipalityWithType? municipality;
-
     final items = response.items;
 
     final pradeshList =
-        items.where((element) => element.type == ItemType.PRADESH);
+        items?.where((element) => element.type == ItemType.PRADESH);
     final districtList =
-        items.where((element) => element.type == ItemType.DISTRICT);
+        items?.where((element) => element.type == ItemType.DISTRICT);
     final municipalityList =
-        items.where((element) => element.type == ItemType.MUNICIPALITY);
+        items?.where((element) => element.type == ItemType.MUNICIPALITY);
 
-    if (pradeshList.isNotEmpty) {
+    if (pradeshList != null) {
       pradesh = pradeshList.first;
     }
 
-    if (districtList.isNotEmpty) {
-      district = districtList.first;
+    if (districtList != null) {
+      district = districtList.first as DistrictWithType?;
     }
 
-    if (municipalityList.isNotEmpty) {
-      municipality = municipalityList.first;
+    if (municipalityList != null) {
+      municipality = municipalityList.first as MunicipalityWithType?;
     }
 
     return HomePageData(

@@ -179,7 +179,7 @@ mixin _$HomeState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomePageData homepagedata) loadSuccess,
+    required TResult Function(HomePageData? homepagedata) loadSuccess,
     required TResult Function() loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -187,7 +187,7 @@ mixin _$HomeState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomePageData homepagedata)? loadSuccess,
+    TResult Function(HomePageData? homepagedata)? loadSuccess,
     TResult Function()? loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -195,7 +195,7 @@ mixin _$HomeState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomePageData homepagedata)? loadSuccess,
+    TResult Function(HomePageData? homepagedata)? loadSuccess,
     TResult Function()? loadFailure,
     required TResult orElse(),
   }) =>
@@ -293,7 +293,7 @@ class _$_InitialHomePageState
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomePageData homepagedata) loadSuccess,
+    required TResult Function(HomePageData? homepagedata) loadSuccess,
     required TResult Function() loadFailure,
   }) {
     return initial();
@@ -304,7 +304,7 @@ class _$_InitialHomePageState
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomePageData homepagedata)? loadSuccess,
+    TResult Function(HomePageData? homepagedata)? loadSuccess,
     TResult Function()? loadFailure,
   }) {
     return initial?.call();
@@ -315,7 +315,7 @@ class _$_InitialHomePageState
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomePageData homepagedata)? loadSuccess,
+    TResult Function(HomePageData? homepagedata)? loadSuccess,
     TResult Function()? loadFailure,
     required TResult orElse(),
   }) {
@@ -418,7 +418,7 @@ class _$_HomePageLoadingState
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomePageData homepagedata) loadSuccess,
+    required TResult Function(HomePageData? homepagedata) loadSuccess,
     required TResult Function() loadFailure,
   }) {
     return loading();
@@ -429,7 +429,7 @@ class _$_HomePageLoadingState
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomePageData homepagedata)? loadSuccess,
+    TResult Function(HomePageData? homepagedata)? loadSuccess,
     TResult Function()? loadFailure,
   }) {
     return loading?.call();
@@ -440,7 +440,7 @@ class _$_HomePageLoadingState
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomePageData homepagedata)? loadSuccess,
+    TResult Function(HomePageData? homepagedata)? loadSuccess,
     TResult Function()? loadFailure,
     required TResult orElse(),
   }) {
@@ -497,7 +497,7 @@ abstract class _$$_HomePageLoadedStateCopyWith<$Res> {
   factory _$$_HomePageLoadedStateCopyWith(_$_HomePageLoadedState value,
           $Res Function(_$_HomePageLoadedState) then) =
       __$$_HomePageLoadedStateCopyWithImpl<$Res>;
-  $Res call({HomePageData homepagedata});
+  $Res call({HomePageData? homepagedata});
 }
 
 /// @nodoc
@@ -519,7 +519,7 @@ class __$$_HomePageLoadedStateCopyWithImpl<$Res>
       homepagedata: homepagedata == freezed
           ? _value.homepagedata
           : homepagedata // ignore: cast_nullable_to_non_nullable
-              as HomePageData,
+              as HomePageData?,
     ));
   }
 }
@@ -532,7 +532,7 @@ class _$_HomePageLoadedState
   _$_HomePageLoadedState({required this.homepagedata});
 
   @override
-  final HomePageData homepagedata;
+  final HomePageData? homepagedata;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -571,7 +571,7 @@ class _$_HomePageLoadedState
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomePageData homepagedata) loadSuccess,
+    required TResult Function(HomePageData? homepagedata) loadSuccess,
     required TResult Function() loadFailure,
   }) {
     return loadSuccess(homepagedata);
@@ -582,7 +582,7 @@ class _$_HomePageLoadedState
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomePageData homepagedata)? loadSuccess,
+    TResult Function(HomePageData? homepagedata)? loadSuccess,
     TResult Function()? loadFailure,
   }) {
     return loadSuccess?.call(homepagedata);
@@ -593,7 +593,7 @@ class _$_HomePageLoadedState
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomePageData homepagedata)? loadSuccess,
+    TResult Function(HomePageData? homepagedata)? loadSuccess,
     TResult Function()? loadFailure,
     required TResult orElse(),
   }) {
@@ -642,10 +642,10 @@ class _$_HomePageLoadedState
 }
 
 abstract class _HomePageLoadedState implements HomeState {
-  factory _HomePageLoadedState({required final HomePageData homepagedata}) =
+  factory _HomePageLoadedState({required final HomePageData? homepagedata}) =
       _$_HomePageLoadedState;
 
-  HomePageData get homepagedata;
+  HomePageData? get homepagedata;
   @JsonKey(ignore: true)
   _$$_HomePageLoadedStateCopyWith<_$_HomePageLoadedState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -705,7 +705,7 @@ class _$_HomePageLoadFailureState
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomePageData homepagedata) loadSuccess,
+    required TResult Function(HomePageData? homepagedata) loadSuccess,
     required TResult Function() loadFailure,
   }) {
     return loadFailure();
@@ -716,7 +716,7 @@ class _$_HomePageLoadFailureState
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomePageData homepagedata)? loadSuccess,
+    TResult Function(HomePageData? homepagedata)? loadSuccess,
     TResult Function()? loadFailure,
   }) {
     return loadFailure?.call();
@@ -727,7 +727,7 @@ class _$_HomePageLoadFailureState
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomePageData homepagedata)? loadSuccess,
+    TResult Function(HomePageData? homepagedata)? loadSuccess,
     TResult Function()? loadFailure,
     required TResult orElse(),
   }) {

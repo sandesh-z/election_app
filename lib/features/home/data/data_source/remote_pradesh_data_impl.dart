@@ -17,9 +17,10 @@ class RemoteDataSourceImpl extends RemotePradeshNameDataSource {
     try {
       Response response = await dioClient.client.get('/home_api/get_details/');
 
-      Map<String, dynamic> data = <String, dynamic>{'data': response.data};
+      Map<String, dynamic> map = <String, dynamic>{'data': response.data};
 
-      homeResponse = HomeResponse.fromJson(data);
+      print(map);
+      homeResponse = HomeResponse.fromJson(map);
       print('SingleTypeResponse Info: ${homeResponse}');
 
       return homeResponse;

@@ -1,5 +1,5 @@
 class ItemType {
-  static const String PRADESH = 'pradesh';
+  static const String PRADESH = 'provience';
   static const String DISTRICT = 'district';
-  static const String MUNICIPALITY = 'municipality';
+  static const String MUNICIPALITY = 'munci';
 }

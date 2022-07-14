@@ -14,10 +14,15 @@ class PradeshName extends Equatable {
 
   @JsonKey(name: "province_en")
   final String? provinceEn;
+
+  @JsonKey(name: "ProvinceId")
+  final int? provinceId;
+
   PradeshName({
     required this.pradeshId,
     required this.pradeshName,
     this.provinceEn,
+    required this.provinceId,
   });
 
   factory PradeshName.fromJson(Map<String, dynamic> json) =>
@@ -26,7 +31,7 @@ class PradeshName extends Equatable {
   Map<String, dynamic> toJson() => _$PradeshNameToJson(this);
 
   @override
-  List<Object?> get props => [pradeshId, pradeshName, provinceEn];
+  List<Object?> get props => [pradeshId, pradeshName, provinceEn, provinceId];
 
   @override
   bool get stringify => true;

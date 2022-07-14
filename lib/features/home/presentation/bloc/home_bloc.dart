@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:election_app/features/home/data/models/HomeResponseModel/home_response_model.dart';
 import 'package:election_app/features/home/domain/usecases/get_homepage_data_usecase.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
@@ -23,6 +24,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final result = await usecase(NoParams());
 
     emit(result.fold((l) => HomeState.loadFailure(),
-        (r) => HomeState.loadSuccess(homepagedata: r)));
+        (r) => HomeState.loadSuccess(homepageresponsedata: r)));
   }
 }

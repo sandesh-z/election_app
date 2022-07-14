@@ -10,10 +10,12 @@ class PradeshDetailModel extends PradeshName {
     required int pradeshId,
     required String pradeshName,
     required String provinceEn,
+    required int provinceId,
   }) : super(
             pradeshId: pradeshId,
             pradeshName: pradeshName,
-            provinceEn: provinceEn);
+            provinceEn: provinceEn,
+            provinceId: provinceId);
 
   factory PradeshDetailModel.fromJson(Map<String, dynamic> json) =>
       _$PradeshDetailModelFromJson(json);

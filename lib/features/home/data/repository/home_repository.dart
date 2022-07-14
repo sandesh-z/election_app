@@ -2,6 +2,7 @@ import 'package:election_app/core/exceptions/exceptions.dart';
 import 'package:election_app/features/home/data/models/HomePageData/home_page_data.dart';
 import 'package:election_app/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:election_app/features/home/data/models/HomeResponseModel/home_response_model.dart';
 import 'package:election_app/features/home/domain/repository/home_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,10 +13,13 @@ class HomeRepositoryImpl extends HomeRepository {
   RemotePradeshNameDataSource remotePradeshNameDataSource;
   HomeRepositoryImpl(this.remotePradeshNameDataSource);
   @override
-  Future<Either<ApiFailure, HomePageData>> getHomeResponse() async {
+  Future<Either<ApiFailure, HomeResponseModel>> getHomeResponse() async {
     try {
       final response = await remotePradeshNameDataSource.getHomeResponse();
-      final homePageData = HomePageData.from(response: response);
+      final homePageData = HomeResponseModel(
+          items: response.items,
+          districtItems: response.districtItems,
+          municipalityItems: response.municipalityItems);
       return Right(homePageData);
     } on AppException catch (e) {
       return Left(e.maybeMap(

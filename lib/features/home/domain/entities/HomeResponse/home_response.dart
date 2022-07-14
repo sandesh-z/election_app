@@ -10,7 +10,11 @@ part 'home_response.g.dart';
 class HomeResponse extends Equatable {
   @JsonKey(name: "data")
   final List<PradeshWithType>? items;
+
+  // @JsonKey(name: "data")
   final List<DistrictWithType>? districtItems;
+
+  // @JsonKey(name: "data")
   final List<MunicipalityWithType>? municipalityItems;
   HomeResponse({
     required this.items,

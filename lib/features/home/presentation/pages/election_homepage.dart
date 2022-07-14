@@ -20,6 +20,7 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
   int? districtprovinceId;
   String? pradeshName = "";
   String? districtName = "";
+
   String? getPradeshName() {
     return pradeshName;
   }
@@ -27,6 +28,11 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
   String? getDistrictName() {
     return districtName;
   }
+
+  int? selectedProvinceId, selectedDistrictId, selectedMunicipalityId;
+
+  final GlobalKey<FormFieldState> _districtKey = GlobalKey<FormFieldState>(),
+      _municipalityKey = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +69,9 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
             initial: (s) => const CircularProgressIndicator(),
             loading: (s) => const CircularProgressIndicator(),
             loadSuccess: (s) {
-              // print(s.homepageresponsedata!.items![1].data.length);
               final districtLength =
                   s.homepageresponsedata!.items![1].data.length;
               final homeData = s.homepageresponsedata;
-              // final provinceId =
-              //     s.homepageresponsedata!.items![1].data[60].provinceId;
-              // print(provinceId);
 
               final provinceFromResponse = s.homepageresponsedata?.items
                       ?.where((element) => element.type == ItemType.PRADESH) ??
@@ -89,16 +91,25 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
               List<String> onChangedValue = [];
 
               if (provinceFromResponse.isNotEmpty) {
-                provinces = provinceFromResponse.first.data.cast<PradeshName>();
+                provinces = provinceFromResponse.first.data
+                    .cast<Map<String, dynamic>>()
+                    .map((e) => PradeshName.fromJson(e))
+                    .toList();
               }
               if (districtsFromResponse.isNotEmpty) {
-                districts =
-                    districtsFromResponse.first.data.cast<DistrictsName>();
-                // print(districts);
+                final districtMaps = districtsFromResponse.first.data
+                    .cast<Map<String, dynamic>>();
+
+                districts = districtMaps.map((e) {
+                  debugPrint(e.toString());
+                  return DistrictsName.fromJson(e);
+                }).toList();
               }
               if (municipalitiesFromResponse.isNotEmpty) {
                 municipalities = municipalitiesFromResponse.first.data
-                    .cast<MunicipalityName>();
+                    .cast<Map<String, dynamic>>()
+                    .map((e) => MunicipalityName.fromJson(e))
+                    .toList();
               }
 
               return ListView(
@@ -106,7 +117,16 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
                 children: [
                   const SizedBox(height: 20),
                   buildPradeshDropDown(provinces: provinces),
-                  buildDistrictDropDownList(homeData, districtLength),
+                  const SizedBox(height: 20),
+                  buildDistrictDropDownList(
+                      districts: selectedProvinceId == null ? [] : districts,
+                      provinceId: selectedProvinceId),
+                  const SizedBox(height: 20),
+                  buildMunicipalityDropDownList(
+                      municipalities:
+                          selectedDistrictId == null ? [] : municipalities,
+                      districtId: selectedDistrictId),
+                  const SizedBox(height: 20),
                   buildTestWidget(getPradeshName(), getDistrictName()),
                 ],
               );
@@ -137,6 +157,79 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
     );
   }
 
+  Widget buildDistrictDropDownList(
+      {List<DistrictsName> districts = const [], int? provinceId}) {
+    var districtsOfSelectedProvince = districts;
+
+    if (provinceId != null && districts.isNotEmpty) {
+      districtsOfSelectedProvince = districts
+          .where((district) => district.pradeshId == provinceId)
+          .toList();
+    }
+
+    return DropdownButtonFormField(
+        key: _districtKey,
+        decoration:
+            const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
+        // value: "Please select some value",
+        hint: Center(child: Text("something")),
+        items: districtsOfSelectedProvince
+            .map((e) => DropdownMenuItem<String>(
+                  child: Text(e.districtName),
+                  value: e.districtId.toString(),
+                ))
+            .toList(),
+        onChanged: (String? districtId) {
+          if (districtId != null) {
+            if (!mounted) return;
+
+            // _districtKey.currentState?.reset();
+            _municipalityKey.currentState?.reset();
+
+            setState(() {
+              // selectedProvinceId = null;
+              selectedDistrictId = int.tryParse(districtId);
+
+              // selectedMunicipalityId = null;
+            });
+          }
+        });
+  }
+
+  Widget buildMunicipalityDropDownList(
+      {List<MunicipalityName> municipalities = const [], int? districtId}) {
+    var municipalitiesOfSelectedDistrict = municipalities;
+    if (districtId != null && municipalities.isNotEmpty) {
+      municipalitiesOfSelectedDistrict = municipalities
+          .where((municipality) => municipality.districtId == districtId)
+          .toList();
+    }
+    return DropdownButtonFormField(
+        key: _municipalityKey,
+        decoration:
+            const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
+        // value: "Please select some value",
+        hint: Center(child: Text("municipality")),
+        items: municipalitiesOfSelectedDistrict
+            .map((e) => DropdownMenuItem<String>(
+                  child: Text(e.municipalityName),
+                  value: e.municipalityId.toString(),
+                ))
+            .toList(),
+        onChanged: (String? districtId) {
+          if (districtId != null) {
+            if (!mounted) return;
+            // _districtKey.currentState?.reset();
+
+            setState(() {
+              // selectedDistrictId = int.tryParse(districtId);
+              selectedMunicipalityId = int.tryParse(districtId);
+              // selectedDistrictId = null;
+            });
+          }
+        });
+  }
+
   Widget buildPradeshDropDown(
       {List<PradeshName> provinces = const [],
       ValueChanged<PradeshName>? onChanged}) {
@@ -150,74 +243,24 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
       items: provinces
           .map((e) => DropdownMenuItem<String>(
                 child: Text(e.pradeshName),
-                value: e.pradeshName,
+                value: e.pradeshId.toString(),
               ))
           .toList(),
-      onChanged: (item) {
-        setState(() {
-          pradeshName = provinces[0].pradeshName;
-          // updateProvinceId++;
-        });
+      onChanged: (String? provinceId) {
+        if (provinceId != null) {
+          if (!mounted) return;
+
+          _districtKey.currentState?.reset();
+          _municipalityKey.currentState?.reset();
+
+          setState(() {
+            selectedProvinceId = int.tryParse(provinceId);
+
+            selectedDistrictId = null;
+            selectedMunicipalityId = null;
+          });
+        }
       },
     );
-  }
-
-  Widget buildDistrictDropDownList(s, int len) {
-    List<String> listItems = [];
-    String? itemdummy = s!.items![1].data[0].pradeshName;
-    String? selectedItem = itemdummy;
-    // if (districtprovinceId == 2) {
-    //   selectedItem = s!.items![1].data[15].pradeshName;
-    // }
-    for (int i = 0; i < 77; i++) {
-      districtprovinceId = s.items![1].data[i].provinceId;
-      // print(districtprovinceId);
-      if (districtprovinceId == 1) {
-        listItems.add(s!.items![1].data[i].pradeshName);
-        // } else if (districtprovinceId == 2) {
-        //   // listItems.clear();
-
-        //   listItems.add(s!.items![1].data[i].pradeshName);
-        // }
-      }
-    }
-
-    return Container(
-        height: 70,
-        width: 200,
-        // padding: const EdgeInsets.all(16),
-        child: Card(
-          color: Colors.grey[100],
-          child: DropdownButtonFormField<String>(
-            isExpanded: true,
-            dropdownColor: Colors.blue[50],
-            // menuMaxHeight: 200,
-            // decoration: InputDecoration.collapsed(hintText: ''),
-            value: selectedItem,
-            // disabledHint: Text('pradesh'),
-            items: listItems
-                .map((item) => DropdownMenuItem<String>(
-                    value: item,
-                    child: Text(
-                      item,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 20,
-                      ),
-                    )))
-                .toList(),
-            onSaved: (item) => setState(() {
-              selectedItem = item;
-            }),
-            onChanged: (item) => setState(() {
-              selectedItem = item;
-              districtName = item!;
-            }),
-            icon: const Icon(
-              Icons.expand_more,
-              size: 30,
-            ),
-          ),
-        ));
   }
 }

@@ -10,7 +10,7 @@ DistrictDetailModel _$DistrictDetailModelFromJson(Map<String, dynamic> json) =>
     DistrictDetailModel(
       districtId: json['Id'] as int,
       districtName: json['Name'] as String,
-      pradeshId: json['provinceId'] as int,
+      pradeshId: json['ProvinceId'] as int,
       districtEn: json['district_en'] as String,
     );
 
@@ -20,5 +20,5 @@ Map<String, dynamic> _$DistrictDetailModelToJson(
       'Id': instance.districtId,
       'Name': instance.districtName,
       'district_en': instance.districtEn,
-      'provinceId': instance.pradeshId,
+      'ProvinceId': instance.pradeshId,
     };

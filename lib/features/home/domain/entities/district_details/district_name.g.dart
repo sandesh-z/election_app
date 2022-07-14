@@ -11,7 +11,7 @@ DistrictsName _$DistrictsNameFromJson(Map<String, dynamic> json) =>
       districtId: json['Id'] as int,
       districtName: json['Name'] as String,
       districtEn: json['district_en'] as String?,
-      pradeshId: json['provinceId'] as int,
+      pradeshId: json['ProvinceId'] as int,
     );
 
 Map<String, dynamic> _$DistrictsNameToJson(DistrictsName instance) =>
@@ -19,5 +19,5 @@ Map<String, dynamic> _$DistrictsNameToJson(DistrictsName instance) =>
       'Id': instance.districtId,
       'Name': instance.districtName,
       'district_en': instance.districtEn,
-      'provinceId': instance.pradeshId,
+      'ProvinceId': instance.pradeshId,
     };

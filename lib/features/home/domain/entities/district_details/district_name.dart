@@ -15,7 +15,7 @@ class DistrictsName extends Equatable {
   @JsonKey(name: "district_en")
   final String? districtEn;
 
-  @JsonKey(name: "provinceId")
+  @JsonKey(name: "ProvinceId")
   final int pradeshId;
   DistrictsName({
     required this.districtId,

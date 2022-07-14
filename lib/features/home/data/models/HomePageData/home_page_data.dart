@@ -31,7 +31,7 @@ class HomePageData extends Equatable {
         items?.where((element) => element.type == ItemType.MUNICIPALITY);
 
     if (pradeshList != null) {
-      pradesh = pradeshList.first;
+      // pradesh = pradeshList.first;
     }
 
     if (districtList != null) {

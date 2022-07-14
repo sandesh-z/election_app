@@ -17,9 +17,8 @@ class HomeRepositoryImpl extends HomeRepository {
     try {
       final response = await remotePradeshNameDataSource.getHomeResponse();
       final homePageData = HomeResponseModel(
-          items: response.items,
-          districtItems: response.districtItems,
-          municipalityItems: response.municipalityItems);
+        items: response.items,
+      );
       return Right(homePageData);
     } on AppException catch (e) {
       return Left(e.maybeMap(

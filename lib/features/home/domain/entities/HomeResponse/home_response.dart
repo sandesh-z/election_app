@@ -4,22 +4,21 @@ import 'package:election_app/features/home/domain/entities/MunicipalityWithType/
 import 'package:election_app/features/home/domain/entities/PradeshWithType/pradesh_with_type.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../ItemWithType/item_with_type.dart';
 part 'home_response.g.dart';
 
 @JsonSerializable()
 class HomeResponse extends Equatable {
   @JsonKey(name: "data")
-  final List<PradeshWithType>? items;
+  final List<ItemWithType>? items;
 
   // @JsonKey(name: "data")
-  final List<DistrictWithType>? districtItems;
 
   // @JsonKey(name: "data")
-  final List<MunicipalityWithType>? municipalityItems;
+
   HomeResponse({
     required this.items,
-    required this.districtItems,
-    required this.municipalityItems,
   });
 
   @override

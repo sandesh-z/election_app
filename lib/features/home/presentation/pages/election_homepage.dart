@@ -4,7 +4,10 @@ import 'package:election_app/features/home/domain/entities/municipality_details/
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/models/no_params.dart';
+import '../../../../injection.dart';
 import '../../domain/entities/pradesh_details/pradesh_name.dart';
+import '../../domain/usecases/get_searchpage_data_usecase.dart';
 import '../bloc/home_bloc.dart';
 
 class ElectionHomePage extends StatefulWidget {
@@ -128,6 +131,12 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
                       districtId: selectedDistrictId),
                   const SizedBox(height: 20),
                   buildTestWidget(getPradeshName(), getDistrictName()),
+                  TextButton(
+                      onPressed: () async {
+                        final usecase = getIt<GetSearchPageDataUseCase>();
+                        final result = await usecase(NoParams());
+                      },
+                      child: Text("Search")),
                 ],
               );
             },

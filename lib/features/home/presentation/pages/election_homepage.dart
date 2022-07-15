@@ -59,92 +59,116 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
           ],
         ),
       ),
-      body: BlocConsumer<HomeBloc, HomeState>(
-        listener: (context, state) {
-          state.map(
-              initial: (s) {},
-              loading: (s) {},
-              loadSuccess: (s) {},
-              loadFailure: (s) {});
-        },
-        builder: (builderContet, state) {
-          return state.map(
-            initial: (s) => const CircularProgressIndicator(),
-            loading: (s) => const CircularProgressIndicator(),
-            loadSuccess: (s) {
-              final districtLength =
-                  s.homepageresponsedata!.items![1].data.length;
-              final homeData = s.homepageresponsedata;
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BlocConsumer<HomeBloc, HomeState>(
+            listener: (context, state) {
+              state.map(
+                  initial: (s) {},
+                  loading: (s) {},
+                  loadSuccess: (s) {},
+                  loadFailure: (s) {});
+            },
+            builder: (builderContet, state) {
+              return state.map(
+                initial: (s) => const CircularProgressIndicator(),
+                loading: (s) => const CircularProgressIndicator(),
+                loadSuccess: (s) {
+                  final districtLength =
+                      s.homepageresponsedata!.items![1].data.length;
+                  final homeData = s.homepageresponsedata;
 
-              final provinceFromResponse = s.homepageresponsedata?.items
-                      ?.where((element) => element.type == ItemType.PRADESH) ??
-                  [];
-              final districtsFromResponse = s.homepageresponsedata?.items
-                      ?.where((element) => element.type == ItemType.DISTRICT) ??
-                  [];
-              final municipalitiesFromResponse = s.homepageresponsedata?.items
-                      ?.where(
-                          (element) => element.type == ItemType.MUNICIPALITY) ??
-                  [];
+                  final provinceFromResponse = s.homepageresponsedata?.items
+                          ?.where(
+                              (element) => element.type == ItemType.PRADESH) ??
+                      [];
+                  final districtsFromResponse = s.homepageresponsedata?.items
+                          ?.where(
+                              (element) => element.type == ItemType.DISTRICT) ??
+                      [];
+                  final municipalitiesFromResponse =
+                      s.homepageresponsedata?.items?.where((element) =>
+                              element.type == ItemType.MUNICIPALITY) ??
+                          [];
 
-              List<PradeshName>? provinces = [];
-              List<DistrictsName>? districts = [];
-              List<MunicipalityName>? municipalities = [];
+                  List<PradeshName>? provinces = [];
+                  List<DistrictsName>? districts = [];
+                  List<MunicipalityName>? municipalities = [];
 
-              List<String> onChangedValue = [];
+                  List<String> onChangedValue = [];
 
-              if (provinceFromResponse.isNotEmpty) {
-                provinces = provinceFromResponse.first.data
-                    .cast<Map<String, dynamic>>()
-                    .map((e) => PradeshName.fromJson(e))
-                    .toList();
-              }
-              if (districtsFromResponse.isNotEmpty) {
-                final districtMaps = districtsFromResponse.first.data
-                    .cast<Map<String, dynamic>>();
+                  if (provinceFromResponse.isNotEmpty) {
+                    provinces = provinceFromResponse.first.data
+                        .cast<Map<String, dynamic>>()
+                        .map((e) => PradeshName.fromJson(e))
+                        .toList();
+                  }
+                  if (districtsFromResponse.isNotEmpty) {
+                    final districtMaps = districtsFromResponse.first.data
+                        .cast<Map<String, dynamic>>();
 
-                districts = districtMaps.map((e) {
-                  debugPrint(e.toString());
-                  return DistrictsName.fromJson(e);
-                }).toList();
-              }
-              if (municipalitiesFromResponse.isNotEmpty) {
-                municipalities = municipalitiesFromResponse.first.data
-                    .cast<Map<String, dynamic>>()
-                    .map((e) => MunicipalityName.fromJson(e))
-                    .toList();
-              }
+                    districts = districtMaps.map((e) {
+                      // debugPrint(e.toString());
+                      return DistrictsName.fromJson(e);
+                    }).toList();
+                  }
+                  if (municipalitiesFromResponse.isNotEmpty) {
+                    municipalities = municipalitiesFromResponse.first.data
+                        .cast<Map<String, dynamic>>()
+                        .map((e) => MunicipalityName.fromJson(e))
+                        .toList();
+                  }
 
-              return ListView(
-                padding: const EdgeInsets.all(8),
-                children: [
-                  const SizedBox(height: 20),
-                  buildPradeshDropDown(provinces: provinces),
-                  const SizedBox(height: 20),
-                  buildDistrictDropDownList(
-                      districts: selectedProvinceId == null ? [] : districts,
-                      provinceId: selectedProvinceId),
-                  const SizedBox(height: 20),
-                  buildMunicipalityDropDownList(
-                      municipalities:
-                          selectedDistrictId == null ? [] : municipalities,
-                      districtId: selectedDistrictId),
-                  const SizedBox(height: 20),
-                  buildTestWidget(getPradeshName(), getDistrictName()),
-                  TextButton(
-                      onPressed: () async {
-                        final usecase = getIt<GetSearchPageDataUseCase>();
-                        final result = await usecase(NoParams());
-                      },
-                      child: Text("Search")),
-                ],
+                  return ListView(
+                    padding: const EdgeInsets.all(8),
+                    children: [
+                      const SizedBox(height: 20),
+                      buildPradeshDropDown(provinces: provinces),
+                      const SizedBox(height: 20),
+                      buildDistrictDropDownList(
+                          districts:
+                              selectedProvinceId == null ? [] : districts,
+                          provinceId: selectedProvinceId),
+                      const SizedBox(height: 20),
+                      buildMunicipalityDropDownList(
+                          municipalities:
+                              selectedDistrictId == null ? [] : municipalities,
+                          districtId: selectedDistrictId),
+                      const SizedBox(height: 20),
+                      // buildTestWidget(getPradeshName(), getDistrictName()),
+                      TextButton(
+                          onPressed: selectedMunicipalityId == null
+                              ? null
+                              : () async {
+                                  final usecase =
+                                      getIt<GetSearchPageDataUseCase>();
+
+                                  if (selectedMunicipalityId != null) {
+                                    final result = await usecase(SearchParams(
+                                        palikaId: selectedMunicipalityId!));
+                                  }
+                                },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                "खोज्नुहोस्",
+                              ),
+                              SizedBox(width: 8),
+                              Icon(Icons.search, color: Colors.white)
+                            ],
+                          )),
+                    ],
+                  );
+                },
+                loadFailure: (s) => const Center(
+                  child: Text("No connection"),
+                ),
               );
             },
-            loadFailure: (s) => const Center(
-              child: Text("No connection"),
-            ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
@@ -181,7 +205,7 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
         decoration:
             const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
         // value: "Please select some value",
-        hint: Center(child: Text("something")),
+        hint: Center(child: Text("जिल्ला")),
         items: districtsOfSelectedProvince
             .map((e) => DropdownMenuItem<String>(
                   child: Text(e.districtName),
@@ -218,7 +242,7 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
         decoration:
             const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
         // value: "Please select some value",
-        hint: Center(child: Text("municipality")),
+        hint: Center(child: Text("नगरपालिका वा गाउँपालिका")),
         items: municipalitiesOfSelectedDistrict
             .map((e) => DropdownMenuItem<String>(
                   child: Text(e.municipalityName),
@@ -242,7 +266,7 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
   Widget buildPradeshDropDown(
       {List<PradeshName> provinces = const [],
       ValueChanged<PradeshName>? onChanged}) {
-    String? defaultValue = "Please select Province";
+    String? defaultValue = "प्रदेश";
     // int updateProvinceId = 1;
     return DropdownButtonFormField(
       decoration:

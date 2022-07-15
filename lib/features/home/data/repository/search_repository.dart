@@ -13,9 +13,10 @@ class SearchRepositoryImpl extends SearchRepository {
   RemoteSearchListDataSource remoteSearchDataSource;
   SearchRepositoryImpl(this.remoteSearchDataSource);
   @override
-  Future<Either<ApiFailure, SearchResponseModel>> getSearchResponse() async {
+  Future<Either<ApiFailure, SearchResponseModel>> getSearchResponse(
+      {required int palikaId}) async {
     try {
-      final response = await remoteSearchDataSource.getSearchResponse();
+      final response = await remoteSearchDataSource.getSearchResponse(palikaId);
       final searchPageData = SearchResponseModel(data: response.data);
 
       return Right(searchPageData);

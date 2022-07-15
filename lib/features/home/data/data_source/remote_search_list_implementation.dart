@@ -12,13 +12,13 @@ class RemoteSearchListDataSourceImpl extends RemoteSearchListDataSource {
   RemoteSearchListDataSourceImpl(this.dioClient);
 
   @override
-  Future<CandidateWithType> getSearchResponse() async {
+  Future<CandidateWithType> getSearchResponse(int palikaId) async {
     CandidateWithType searchResponse;
 
     try {
       Response response = await dioClient.client.post(
         '/home_api/search/',
-        data: {'PalikaId': 338},
+        data: {'PalikaId': palikaId},
       );
 
       searchResponse = CandidateWithType.fromJson(response.data);

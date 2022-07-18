@@ -9,12 +9,21 @@ import '../repository/search_repository.dart';
 
 @lazySingleton
 class GetSearchPageDataUseCase
-    extends UseCase<ApiFailure, SearchResponseModel, NoParams> {
+    extends UseCase<ApiFailure, SearchResponseModel, SearchParams> {
   SearchRepository searchRepository;
   GetSearchPageDataUseCase(this.searchRepository);
 
   @override
-  Future<Either<ApiFailure, SearchResponseModel>> call(NoParams params) async {
-    return await searchRepository.getSearchResponse();
+  Future<Either<ApiFailure, SearchResponseModel>> call(
+      SearchParams params) async {
+    return await searchRepository.getSearchResponse(palikaId: params.palikaId);
   }
+}
+
+class SearchParams {
+  int palikaId;
+
+  SearchParams({
+    required this.palikaId,
+  });
 }

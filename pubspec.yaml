@@ -45,6 +45,7 @@ dependencies:
   injectable: ^1.5.3
   flutter_bloc: ^8.0.1
   bloc: ^8.0.3
+  syncfusion_flutter_charts: ^20.2.38
 dependency_overrides:
   analyzer: ">=4.2.0 <5.0.0"
 

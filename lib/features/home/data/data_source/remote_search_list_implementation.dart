@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:election_app/core/usecases/dio_client.dart';
-import 'package:election_app/features/home/data/data_source/remote_search_list_data_source.dart';
-import 'package:election_app/features/home/domain/entities/CandidateWithType/candidate_with_type.dart';
+import '../../../../core/usecases/dio_client.dart';
+import 'remote_search_list_data_source.dart';
+import '../../domain/entities/CandidateWithType/candidate_with_type.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/exceptions/exceptions.dart';
@@ -12,13 +12,13 @@ class RemoteSearchListDataSourceImpl extends RemoteSearchListDataSource {
   RemoteSearchListDataSourceImpl(this.dioClient);
 
   @override
-  Future<CandidateWithType> getSearchResponse() async {
+  Future<CandidateWithType> getSearchResponse(int palikaId) async {
     CandidateWithType searchResponse;
 
     try {
       Response response = await dioClient.client.post(
         '/home_api/search/',
-        data: {'PalikaId': 338},
+        data: {'PalikaId': palikaId},
       );
 
       searchResponse = CandidateWithType.fromJson(response.data);

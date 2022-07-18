@@ -1,9 +1,11 @@
-import 'package:election_app/features/home/domain/usecases/get_homepage_data_usecase.dart';
-import 'package:election_app/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/home/presentation/bloc/home_bloc.dart';
-import 'features/home/presentation/pages/election_homepage.dart';
+
+import 'features/home/domain/usecases/get_home_page_party_data_usecase.dart';
+
+import 'features/home/presentation/bloc/home_party_bloc/home_page_bloc.dart';
+import 'features/home/presentation/pages/winner_parties_list_page.dart';
+import 'injection.dart';
 
 void main() {
   configureDependencies();
@@ -16,14 +18,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeBloc(getIt<GetHomePageDataUseCase>())
+      create: (context) => HomeBloc(getIt<GetHomePagePartyDataUseCase>())
         ..add(HomeEvent.loadHomePageData()),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: ElectionHomePage(),
+        home: PartyWiseDetail(),
       ),
     );
   }

@@ -16,10 +16,10 @@ class Candidate extends Equatable {
   final String winnerPartyName;
 
   @JsonKey(name: "party_logo")
-  final String winnerPartyLogo;
+  final String? winnerPartyLogo;
 
   @JsonKey(name: "party_color")
-  final String partyColor;
+  final String? partyColor;
 
   @JsonKey(name: "post_name")
   final String postName;
@@ -34,7 +34,7 @@ class Candidate extends Equatable {
   final String runnerUpCanditate;
 
   @JsonKey(name: "party_logo_2")
-  final String runnerUpPartyLogo;
+  final String? runnerUpPartyLogo;
 
   @JsonKey(name: "party_name_2")
   final String runnerUpPartyName;
@@ -43,10 +43,10 @@ class Candidate extends Equatable {
   final int runnerUpVoteCount;
 
   @JsonKey(name: "created_at")
-  final String createdDate;
+  final String? createdDate;
 
   @JsonKey(name: "modified_at")
-  final String modifiedDate;
+  final String? modifiedDate;
 
   Candidate({
     required this.status,

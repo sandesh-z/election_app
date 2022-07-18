@@ -1,6 +1,6 @@
-import 'package:election_app/features/home/domain/constants/item_type.dart';
-import 'package:election_app/features/home/domain/entities/district_details/district_name.dart';
-import 'package:election_app/features/home/domain/entities/municipality_details/municipality_name.dart';
+import '../../domain/constants/item_type.dart';
+import '../../domain/entities/district_details/district_name.dart';
+import '../../domain/entities/municipality_details/municipality_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -104,7 +104,7 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
                     .cast<Map<String, dynamic>>();
 
                 districts = districtMaps.map((e) {
-                  debugPrint(e.toString());
+                  // debugPrint(e.toString());
                   return DistrictsName.fromJson(e);
                 }).toList();
               }
@@ -130,13 +130,28 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
                           selectedDistrictId == null ? [] : municipalities,
                       districtId: selectedDistrictId),
                   const SizedBox(height: 20),
-                  buildTestWidget(getPradeshName(), getDistrictName()),
+                  // buildTestWidget(getPradeshName(), getDistrictName()),
                   TextButton(
-                      onPressed: () async {
-                        final usecase = getIt<GetSearchPageDataUseCase>();
-                        final result = await usecase(NoParams());
-                      },
-                      child: Text("Search")),
+                      onPressed: selectedMunicipalityId == null
+                          ? null
+                          : () async {
+                              final usecase = getIt<GetSearchPageDataUseCase>();
+
+                              if (selectedMunicipalityId != null) {
+                                final result = await usecase(SearchParams(
+                                    palikaId: selectedMunicipalityId!));
+                              }
+                            },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            "खोज्नुहोस्",
+                          ),
+                          SizedBox(width: 8),
+                          Icon(Icons.search, color: Colors.white)
+                        ],
+                      )),
                 ],
               );
             },
@@ -181,7 +196,7 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
         decoration:
             const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
         // value: "Please select some value",
-        hint: Center(child: Text("something")),
+        hint: Center(child: Text("जिल्ला")),
         items: districtsOfSelectedProvince
             .map((e) => DropdownMenuItem<String>(
                   child: Text(e.districtName),
@@ -218,7 +233,7 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
         decoration:
             const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
         // value: "Please select some value",
-        hint: Center(child: Text("municipality")),
+        hint: Center(child: Text("नगरपालिका वा गाउँपालिका")),
         items: municipalitiesOfSelectedDistrict
             .map((e) => DropdownMenuItem<String>(
                   child: Text(e.municipalityName),
@@ -242,7 +257,7 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
   Widget buildPradeshDropDown(
       {List<PradeshName> provinces = const [],
       ValueChanged<PradeshName>? onChanged}) {
-    String? defaultValue = "Please select Province";
+    String? defaultValue = "प्रदेश";
     // int updateProvinceId = 1;
     return DropdownButtonFormField(
       decoration:

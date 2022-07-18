@@ -18,8 +18,6 @@ class ElectionHomePage extends StatefulWidget {
 }
 
 class _ElectionHomePageState extends State<ElectionHomePage> {
-  // List<String> listItems = ['item 1', 'item 2', 'item 3', 'item 4'];
-  // String? selectedItem = 'item 1';
   int? districtprovinceId;
   String? pradeshName = "";
   String? districtName = "";
@@ -40,25 +38,6 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 100.0,
-        // foregroundColor: Colors.white,
-        // backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            SizedBox(
-              width: 150,
-              height: 100,
-              child: Image.asset('assets/icons/logo.png'),
-            ),
-            const Spacer(),
-            const Text(
-              "स्थानीय तहको निर्वाचन २०७९",
-              style: TextStyle(fontSize: 16, color: Colors.black),
-            ),
-          ],
-        ),
-      ),
       body: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {
           state.map(

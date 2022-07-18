@@ -1,9 +1,11 @@
+import 'package:election_app/features/home/domain/usecases/get_homepage_data_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'features/home/domain/usecases/get_home_page_party_data_usecase.dart';
 
 import 'features/home/presentation/bloc/home_party_bloc/home_page_bloc.dart';
+// import 'features/home/presentation/bloc/home_bloc.dart';
 import 'features/home/presentation/pages/winner_parties_list_page.dart';
 import 'injection.dart';
 
@@ -17,11 +19,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeBloc(getIt<GetHomePagePartyDataUseCase>())
-        ..add(HomeEvent.loadHomePageData()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HomeBloc(getIt<GetHomePagePartyDataUseCase>())
+            ..add(HomeEvent.loadHomePageData()),
+        ),
+        // BlocProvider(
+        //   create: (searchcontext) => HomeBloc(getIt<GetHomePageDataUseCase>()),
+        // ),
+      ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

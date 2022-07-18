@@ -38,6 +38,9 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("स्थानीय तहको निर्वाचन २०७९"),
+      ),
       body: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {
           state.map(

@@ -14,18 +14,19 @@ part 'home_page_bloc.freezed.dart';
 part 'home_page_event.dart';
 part 'home_page_state.dart';
 
-class HomeBloc extends Bloc<HomeEvent, HomeState> {
+class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
   GetHomePagePartyDataUseCase getHomePagePartyDataUseCase;
 
-  HomeBloc(this.getHomePagePartyDataUseCase) : super(HomeState.loading()) {
+  HomePageBloc(this.getHomePagePartyDataUseCase)
+      : super(HomePageState.loading()) {
     on<_LoadHomePageDataEvent>(_onLoadHomePageDataEvent);
   }
   void _onLoadHomePageDataEvent(
-      _LoadHomePageDataEvent event, Emitter<HomeState> emit) async {
+      _LoadHomePageDataEvent event, Emitter<HomePageState> emit) async {
     final usecase = getIt<GetHomePagePartyDataUseCase>();
     final result = await usecase(NoParams());
 
-    emit(result.fold((l) => HomeState.loadFailure(),
-        (r) => HomeState.loadSuccess(homeWinnerPartyPagedata: r)));
+    emit(result.fold((l) => HomePageState.loadFailure(),
+        (r) => HomePageState.loadSuccess(homeWinnerPartyPagedata: r)));
   }
 }

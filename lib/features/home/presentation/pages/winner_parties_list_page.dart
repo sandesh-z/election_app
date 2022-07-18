@@ -36,7 +36,7 @@ class PartyWiseDetail extends StatelessWidget {
                 icon: const Icon(Icons.search)),
           ],
         ),
-        body: BlocConsumer<HomeBloc, HomeState>(
+        body: BlocConsumer<HomePageBloc, HomePageState>(
           listener: (context, state) {
             state.map(
                 loading: (s) {}, loadFailure: (s) {}, loadSuccess: (s) {});
@@ -52,8 +52,8 @@ class PartyWiseDetail extends StatelessWidget {
                     MaterialButton(
                         child: const Icon(Icons.restart_alt),
                         onPressed: () {
-                          BlocProvider.of<HomeBloc>(context)
-                              .add(HomeEvent.loadHomePageData());
+                          BlocProvider.of<HomePageBloc>(context)
+                              .add(HomePageEvent.loadHomePageData());
                         })
                   ],
                 ),

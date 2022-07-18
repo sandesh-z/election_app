@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'features/home/domain/usecases/get_home_page_party_data_usecase.dart';
 
+import 'features/home/presentation/bloc/home_bloc.dart';
 import 'features/home/presentation/bloc/home_party_bloc/home_page_bloc.dart';
 // import 'features/home/presentation/bloc/home_bloc.dart';
 import 'features/home/presentation/pages/winner_parties_list_page.dart';
@@ -22,12 +23,14 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => HomeBloc(getIt<GetHomePagePartyDataUseCase>())
+          create: (context) =>
+              HomePageBloc(getIt<GetHomePagePartyDataUseCase>())
+                ..add(HomePageEvent.loadHomePageData()),
+        ),
+        BlocProvider(
+          create: (searchcontext) => HomeBloc(getIt<GetHomePageDataUseCase>())
             ..add(HomeEvent.loadHomePageData()),
         ),
-        // BlocProvider(
-        //   create: (searchcontext) => HomeBloc(getIt<GetHomePageDataUseCase>()),
-        // ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

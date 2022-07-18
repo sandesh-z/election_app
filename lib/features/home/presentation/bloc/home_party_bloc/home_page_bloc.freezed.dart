@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$HomeEvent {
+mixin _$HomePageEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadHomePageData,
@@ -58,18 +58,20 @@ mixin _$HomeEvent {
 }
 
 /// @nodoc
-abstract class $HomeEventCopyWith<$Res> {
-  factory $HomeEventCopyWith(HomeEvent value, $Res Function(HomeEvent) then) =
-      _$HomeEventCopyWithImpl<$Res>;
+abstract class $HomePageEventCopyWith<$Res> {
+  factory $HomePageEventCopyWith(
+          HomePageEvent value, $Res Function(HomePageEvent) then) =
+      _$HomePageEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HomeEventCopyWithImpl<$Res> implements $HomeEventCopyWith<$Res> {
-  _$HomeEventCopyWithImpl(this._value, this._then);
+class _$HomePageEventCopyWithImpl<$Res>
+    implements $HomePageEventCopyWith<$Res> {
+  _$HomePageEventCopyWithImpl(this._value, this._then);
 
-  final HomeEvent _value;
+  final HomePageEvent _value;
   // ignore: unused_field
-  final $Res Function(HomeEvent) _then;
+  final $Res Function(HomePageEvent) _then;
 }
 
 /// @nodoc
@@ -81,7 +83,7 @@ abstract class _$$_LoadHomePageDataEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$_LoadHomePageDataEventCopyWithImpl<$Res>
-    extends _$HomeEventCopyWithImpl<$Res>
+    extends _$HomePageEventCopyWithImpl<$Res>
     implements _$$_LoadHomePageDataEventCopyWith<$Res> {
   __$$_LoadHomePageDataEventCopyWithImpl(_$_LoadHomePageDataEvent _value,
       $Res Function(_$_LoadHomePageDataEvent) _then)
@@ -101,13 +103,14 @@ class _$_LoadHomePageDataEvent
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeEvent.loadHomePageData()';
+    return 'HomePageEvent.loadHomePageData()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'HomeEvent.loadHomePageData'));
+    properties
+        .add(DiagnosticsProperty('type', 'HomePageEvent.loadHomePageData'));
   }
 
   @override
@@ -183,7 +186,7 @@ class _$_LoadHomePageDataEvent
   }
 }
 
-abstract class _LoadHomePageDataEvent implements HomeEvent {
+abstract class _LoadHomePageDataEvent implements HomePageEvent {
   factory _LoadHomePageDataEvent() = _$_LoadHomePageDataEvent;
 }
 
@@ -196,7 +199,7 @@ abstract class _$$_ReloadHomePageDataEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$_ReloadHomePageDataEventCopyWithImpl<$Res>
-    extends _$HomeEventCopyWithImpl<$Res>
+    extends _$HomePageEventCopyWithImpl<$Res>
     implements _$$_ReloadHomePageDataEventCopyWith<$Res> {
   __$$_ReloadHomePageDataEventCopyWithImpl(_$_ReloadHomePageDataEvent _value,
       $Res Function(_$_ReloadHomePageDataEvent) _then)
@@ -216,13 +219,14 @@ class _$_ReloadHomePageDataEvent
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeEvent.reloadHomePageData()';
+    return 'HomePageEvent.reloadHomePageData()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'HomeEvent.reloadHomePageData'));
+    properties
+        .add(DiagnosticsProperty('type', 'HomePageEvent.reloadHomePageData'));
   }
 
   @override
@@ -299,12 +303,12 @@ class _$_ReloadHomePageDataEvent
   }
 }
 
-abstract class _ReloadHomePageDataEvent implements HomeEvent {
+abstract class _ReloadHomePageDataEvent implements HomePageEvent {
   factory _ReloadHomePageDataEvent() = _$_ReloadHomePageDataEvent;
 }
 
 /// @nodoc
-mixin _$HomeState {
+mixin _$HomePageState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
@@ -356,18 +360,20 @@ mixin _$HomeState {
 }
 
 /// @nodoc
-abstract class $HomeStateCopyWith<$Res> {
-  factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
-      _$HomeStateCopyWithImpl<$Res>;
+abstract class $HomePageStateCopyWith<$Res> {
+  factory $HomePageStateCopyWith(
+          HomePageState value, $Res Function(HomePageState) then) =
+      _$HomePageStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
-  _$HomeStateCopyWithImpl(this._value, this._then);
+class _$HomePageStateCopyWithImpl<$Res>
+    implements $HomePageStateCopyWith<$Res> {
+  _$HomePageStateCopyWithImpl(this._value, this._then);
 
-  final HomeState _value;
+  final HomePageState _value;
   // ignore: unused_field
-  final $Res Function(HomeState) _then;
+  final $Res Function(HomePageState) _then;
 }
 
 /// @nodoc
@@ -379,7 +385,7 @@ abstract class _$$_HomeLoadingStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_HomeLoadingStateCopyWithImpl<$Res>
-    extends _$HomeStateCopyWithImpl<$Res>
+    extends _$HomePageStateCopyWithImpl<$Res>
     implements _$$_HomeLoadingStateCopyWith<$Res> {
   __$$_HomeLoadingStateCopyWithImpl(
       _$_HomeLoadingState _value, $Res Function(_$_HomeLoadingState) _then)
@@ -398,13 +404,13 @@ class _$_HomeLoadingState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeState.loading()';
+    return 'HomePageState.loading()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'HomeState.loading'));
+    properties.add(DiagnosticsProperty('type', 'HomePageState.loading'));
   }
 
   @override
@@ -489,7 +495,7 @@ class _$_HomeLoadingState
   }
 }
 
-abstract class _HomeLoadingState implements HomeState {
+abstract class _HomeLoadingState implements HomePageState {
   factory _HomeLoadingState() = _$_HomeLoadingState;
 }
 
@@ -502,7 +508,7 @@ abstract class _$$_HomeLoadFailureStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_HomeLoadFailureStateCopyWithImpl<$Res>
-    extends _$HomeStateCopyWithImpl<$Res>
+    extends _$HomePageStateCopyWithImpl<$Res>
     implements _$$_HomeLoadFailureStateCopyWith<$Res> {
   __$$_HomeLoadFailureStateCopyWithImpl(_$_HomeLoadFailureState _value,
       $Res Function(_$_HomeLoadFailureState) _then)
@@ -521,13 +527,13 @@ class _$_HomeLoadFailureState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeState.loadFailure()';
+    return 'HomePageState.loadFailure()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'HomeState.loadFailure'));
+    properties.add(DiagnosticsProperty('type', 'HomePageState.loadFailure'));
   }
 
   @override
@@ -612,7 +618,7 @@ class _$_HomeLoadFailureState
   }
 }
 
-abstract class _HomeLoadFailureState implements HomeState {
+abstract class _HomeLoadFailureState implements HomePageState {
   factory _HomeLoadFailureState() = _$_HomeLoadFailureState;
 }
 
@@ -626,7 +632,7 @@ abstract class _$$_HomeLoadSuccessStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_HomeLoadSuccessStateCopyWithImpl<$Res>
-    extends _$HomeStateCopyWithImpl<$Res>
+    extends _$HomePageStateCopyWithImpl<$Res>
     implements _$$_HomeLoadSuccessStateCopyWith<$Res> {
   __$$_HomeLoadSuccessStateCopyWithImpl(_$_HomeLoadSuccessState _value,
       $Res Function(_$_HomeLoadSuccessState) _then)
@@ -660,14 +666,14 @@ class _$_HomeLoadSuccessState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomeState.loadSuccess(homeWinnerPartyPagedata: $homeWinnerPartyPagedata)';
+    return 'HomePageState.loadSuccess(homeWinnerPartyPagedata: $homeWinnerPartyPagedata)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'HomeState.loadSuccess'))
+      ..add(DiagnosticsProperty('type', 'HomePageState.loadSuccess'))
       ..add(DiagnosticsProperty(
           'homeWinnerPartyPagedata', homeWinnerPartyPagedata));
   }
@@ -764,7 +770,7 @@ class _$_HomeLoadSuccessState
   }
 }
 
-abstract class _HomeLoadSuccessState implements HomeState {
+abstract class _HomeLoadSuccessState implements HomePageState {
   factory _HomeLoadSuccessState(
           {required final WinnerPartyDetailListModel homeWinnerPartyPagedata}) =
       _$_HomeLoadSuccessState;

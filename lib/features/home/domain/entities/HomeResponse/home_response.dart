@@ -1,7 +1,3 @@
-import 'package:election_app/features/home/data/models/municipality_detail/municipality_name.dart';
-import 'package:election_app/features/home/domain/entities/DistrictWithType/district_with_type.dart';
-import 'package:election_app/features/home/domain/entities/MunicipalityWithType/municipality_with_type.dart';
-import 'package:election_app/features/home/domain/entities/PradeshWithType/pradesh_with_type.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

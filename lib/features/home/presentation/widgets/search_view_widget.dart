@@ -71,7 +71,7 @@ Widget buildRowTile(
           Row(
             children: [
               Text("$canditateName - $voteCount मत",
-                  style: TextStyle(fontSize: 25)),
+                  style: const TextStyle(fontSize: 25)),
             ],
           ),
         ],

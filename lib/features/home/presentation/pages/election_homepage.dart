@@ -10,7 +10,7 @@ import '../../domain/usecases/get_searchpage_data_usecase.dart';
 import '../bloc/home_bloc/home_bloc.dart';
 
 class ElectionHomePage extends StatefulWidget {
-  ElectionHomePage({Key? key}) : super(key: key);
+  const ElectionHomePage({Key? key}) : super(key: key);
 
   @override
   State<ElectionHomePage> createState() => _ElectionHomePageState();
@@ -43,9 +43,9 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
             initial: (s) => const Center(child: CircularProgressIndicator()),
             loading: (s) => const Center(child: CircularProgressIndicator()),
             loadSuccess: (s) {
-              final districtLength =
-                  s.homepageresponsedata!.items![1].data.length;
-              final homeData = s.homepageresponsedata;
+              // final districtLength =
+              //     s.homepageresponsedata!.items![1].data.length;
+              // final homeData = s.homepageresponsedata;
 
               final provinceFromResponse = s.homepageresponsedata?.items
                       ?.where((element) => element.type == ItemType.PRADESH) ??
@@ -62,7 +62,7 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
               List<DistrictsName>? districts = [];
               List<MunicipalityName>? municipalities = [];
 
-              List<String> onChangedValue = [];
+              // List<String> onChangedValue = [];
 
               if (provinceFromResponse.isNotEmpty) {
                 provinces = provinceFromResponse.first.data
@@ -132,7 +132,7 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
                       ],
                     ),
                   ),
-                  Expanded(child: Text("Nothing to show")),
+                  const Expanded(child: Text("Nothing to show")),
                 ],
               );
             },
@@ -170,11 +170,11 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
         decoration:
             const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
         // value: "Please select some value",
-        hint: Center(child: Text("जिल्ला")),
+        hint: const Center(child: Text("जिल्ला")),
         items: districtsOfSelectedProvince
             .map((e) => DropdownMenuItem<String>(
-                  child: Text(e.districtName),
                   value: e.districtId.toString(),
+                  child: Text(e.districtName),
                 ))
             .toList(),
         onChanged: (String? districtId) {
@@ -207,11 +207,11 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
         decoration:
             const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
         // value: "Please select some value",
-        hint: Center(child: Text("नगरपालिका वा गाउँपालिका")),
+        hint: const Center(child: Text("नगरपालिका वा गाउँपालिका")),
         items: municipalitiesOfSelectedDistrict
             .map((e) => DropdownMenuItem<String>(
-                  child: Text(e.municipalityName),
                   value: e.municipalityId.toString(),
+                  child: Text(e.municipalityName),
                 ))
             .toList(),
         onChanged: (String? districtId) {
@@ -240,8 +240,8 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
       hint: Center(child: Text(defaultValue)),
       items: provinces
           .map((e) => DropdownMenuItem<String>(
-                child: Text(e.pradeshName),
                 value: e.pradeshId.toString(),
+                child: Text(e.pradeshName),
               ))
           .toList(),
       onChanged: (String? provinceId) {

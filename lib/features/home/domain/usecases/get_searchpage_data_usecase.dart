@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../core/failures/failure.dart';
-import '../../../../core/models/no_params.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../data/models/SearchResponseModel/search_response_model.dart';
 import '../repository/search_repository.dart';

@@ -12,7 +12,7 @@ import '../../domain/usecases/get_searchpage_data_usecase.dart';
 import '../bloc/search_detail_bloc/search_detail_bloc.dart';
 
 class SearchDetailPage extends StatefulWidget {
-  SearchDetailPage({Key? key}) : super(key: key);
+  const SearchDetailPage({Key? key}) : super(key: key);
 
   @override
   State<SearchDetailPage> createState() => _SearchDetailPageState();
@@ -60,11 +60,6 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                       ),
                     ),
                 searchOptionLoadSuccess: (s) {
-                  final districtLength =
-                      s.searchOptionsdata.items![1].data.length;
-
-                  final homeData = s.searchOptionsdata;
-
                   final provinceFromResponse = s.searchOptionsdata.items?.where(
                           (element) => element.type == ItemType.PRADESH) ??
                       [];
@@ -211,8 +206,8 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
       hint: Center(child: Text(defaultValue)),
       items: provinces
           .map((e) => DropdownMenuItem<String>(
-                child: Text(e.pradeshName),
                 value: e.pradeshId.toString(),
+                child: Text(e.pradeshName),
               ))
           .toList(),
       onChanged: (String? provinceId) {
@@ -248,11 +243,11 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
         decoration:
             const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
         // value: "Please select some value",
-        hint: Center(child: Text("जिल्ला")),
+        hint: const Center(child: Text("जिल्ला")),
         items: districtsOfSelectedProvince
             .map((e) => DropdownMenuItem<String>(
-                  child: Text(e.districtName),
                   value: e.districtId.toString(),
+                  child: Text(e.districtName),
                 ))
             .toList(),
         onChanged: (String? districtId) {
@@ -285,11 +280,11 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
         decoration:
             const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
         // value: "Please select some value",
-        hint: Center(child: Text("नगरपालिका वा गाउँपालिका")),
+        hint: const Center(child: Text("नगरपालिका वा गाउँपालिका")),
         items: municipalitiesOfSelectedDistrict
             .map((e) => DropdownMenuItem<String>(
-                  child: Text(e.municipalityName),
                   value: e.municipalityId.toString(),
+                  child: Text(e.municipalityName),
                 ))
             .toList(),
         onChanged: (String? districtId) {

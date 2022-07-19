@@ -1,4 +1,5 @@
 import 'package:election_app/features/home/presentation/pages/election_homepage.dart';
+import 'package:election_app/features/home/presentation/pages/search_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -30,7 +31,7 @@ class PartyWiseDetail extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ElectionHomePage()),
+                    MaterialPageRoute(builder: (context) => SearchDetailPage()),
                   );
                 },
                 icon: const Icon(Icons.search)),

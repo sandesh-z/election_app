@@ -4,11 +4,10 @@ import '../../domain/entities/municipality_details/municipality_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/models/no_params.dart';
 import '../../../../injection.dart';
 import '../../domain/entities/pradesh_details/pradesh_name.dart';
 import '../../domain/usecases/get_searchpage_data_usecase.dart';
-import '../bloc/home_bloc.dart';
+import '../bloc/home_bloc/home_bloc.dart';
 
 class ElectionHomePage extends StatefulWidget {
   ElectionHomePage({Key? key}) : super(key: key);
@@ -19,16 +18,6 @@ class ElectionHomePage extends StatefulWidget {
 
 class _ElectionHomePageState extends State<ElectionHomePage> {
   int? districtprovinceId;
-  String? pradeshName = "";
-  String? districtName = "";
-
-  String? getPradeshName() {
-    return pradeshName;
-  }
-
-  String? getDistrictName() {
-    return districtName;
-  }
 
   int? selectedProvinceId, selectedDistrictId, selectedMunicipalityId;
 
@@ -51,8 +40,8 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
         },
         builder: (builderContet, state) {
           return state.map(
-            initial: (s) => const CircularProgressIndicator(),
-            loading: (s) => const CircularProgressIndicator(),
+            initial: (s) => const Center(child: CircularProgressIndicator()),
+            loading: (s) => const Center(child: CircularProgressIndicator()),
             loadSuccess: (s) {
               final districtLength =
                   s.homepageresponsedata!.items![1].data.length;
@@ -97,69 +86,72 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
                     .toList();
               }
 
-              return ListView(
-                padding: const EdgeInsets.all(8),
+              return Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  const SizedBox(height: 20),
-                  buildPradeshDropDown(provinces: provinces),
-                  const SizedBox(height: 20),
-                  buildDistrictDropDownList(
-                      districts: selectedProvinceId == null ? [] : districts,
-                      provinceId: selectedProvinceId),
-                  const SizedBox(height: 20),
-                  buildMunicipalityDropDownList(
-                      municipalities:
-                          selectedDistrictId == null ? [] : municipalities,
-                      districtId: selectedDistrictId),
-                  const SizedBox(height: 20),
-                  // buildTestWidget(getPradeshName(), getDistrictName()),
-                  TextButton(
-                      onPressed: selectedMunicipalityId == null
-                          ? null
-                          : () async {
-                              final usecase = getIt<GetSearchPageDataUseCase>();
+                  Expanded(
+                    child: ListView(
+                      padding: const EdgeInsets.all(8),
+                      children: [
+                        const SizedBox(height: 20),
+                        buildPradeshDropDown(provinces: provinces),
+                        const SizedBox(height: 20),
+                        buildDistrictDropDownList(
+                            districts:
+                                selectedProvinceId == null ? [] : districts,
+                            provinceId: selectedProvinceId),
+                        const SizedBox(height: 20),
+                        buildMunicipalityDropDownList(
+                            municipalities: selectedDistrictId == null
+                                ? []
+                                : municipalities,
+                            districtId: selectedDistrictId),
+                        const SizedBox(height: 20),
+                        TextButton(
+                            onPressed: selectedMunicipalityId == null
+                                ? null
+                                : () async {
+                                    final usecase =
+                                        getIt<GetSearchPageDataUseCase>();
 
-                              if (selectedMunicipalityId != null) {
-                                final result = await usecase(SearchParams(
-                                    palikaId: selectedMunicipalityId!));
-                              }
-                            },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(
-                            "खोज्नुहोस्",
-                          ),
-                          SizedBox(width: 8),
-                          Icon(Icons.search, color: Colors.white)
-                        ],
-                      )),
+                                    if (selectedMunicipalityId != null) {
+                                      final result = await usecase(SearchParams(
+                                          palikaId: selectedMunicipalityId!));
+                                    }
+                                  },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  "खोज्नुहोस्",
+                                ),
+                                SizedBox(width: 8),
+                                Icon(Icons.search, color: Colors.white)
+                              ],
+                            )),
+                      ],
+                    ),
+                  ),
+                  Expanded(child: Text("Nothing to show")),
                 ],
               );
             },
-            loadFailure: (s) => const Center(
-              child: Text("No connection"),
+            loadFailure: (s) => Center(
+              child: Column(
+                children: [
+                  const Text("No connection.Try again"),
+                  IconButton(
+                      onPressed: () {
+                        BlocProvider.of<HomeBloc>(context)
+                            .add(HomeEvent.loadHomePageData());
+                      },
+                      icon: const Icon(Icons.restart_alt))
+                ],
+              ),
             ),
           );
         },
       ),
-    );
-  }
-
-  Widget buildTestWidget(String? pradeshName, String? districtName) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Text("Province: ${pradeshName!}"),
-          ],
-        ),
-        Row(
-          children: [
-            Text("District: ${districtName!}"),
-          ],
-        ),
-      ],
     );
   }
 

@@ -4,9 +4,8 @@ import 'package:election_app/features/home/domain/usecases/get_homepage_data_use
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../../core/models/no_params.dart';
-import '../../../../injection.dart';
-import '../../data/models/HomePageData/home_page_data.dart';
+import '../../../../../core/models/no_params.dart';
+import '../../../../../injection.dart';
 
 part 'home_bloc.freezed.dart';
 part 'home_event.dart';

@@ -12,7 +12,8 @@ part 'search_bloc.freezed.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   GetSearchPageDataUseCase getSearchPageDataUseCase;
-  SearchBloc(this.getSearchPageDataUseCase) : super(SearchState.loading()) {
+  SearchBloc(this.getSearchPageDataUseCase)
+      : super(SearchState.searchLoading()) {
     on<_LoadSearchDataEvent>(_onLoadSearchDataEvent);
   }
   void _onLoadSearchDataEvent(
@@ -20,7 +21,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     final usecase = getIt<GetSearchPageDataUseCase>();
     final result = await usecase(SearchParams(palikaId: 7));
 
-    emit(result.fold((l) => SearchState.loadFailure(),
-        (r) => SearchState.loadSuccess(searchResponseModel: r)));
+    emit(result.fold((l) => SearchState.searchLoadFailure(),
+        (r) => SearchState.searchLoadSuccess(searchResponseModel: r)));
   }
 }

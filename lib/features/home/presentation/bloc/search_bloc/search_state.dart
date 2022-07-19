@@ -2,9 +2,9 @@ part of 'search_bloc.dart';
 
 @freezed
 class SearchState with _$SearchState {
-  factory SearchState.loading() = _SearchLoadingState;
-  factory SearchState.loadSuccess(
+  factory SearchState.searchLoading() = _SearchLoadingState;
+  factory SearchState.searchLoadSuccess(
           {required SearchResponseModel searchResponseModel}) =
       _SearchLoadSuccessState;
-  factory SearchState.loadFailure() = _SearchLoadFailureState;
+  factory SearchState.searchLoadFailure() = _SearchLoadFailureState;
 }

@@ -177,46 +177,48 @@ abstract class _LoadSearchDataEvent implements SearchEvent {
 mixin _$SearchState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loading,
+    required TResult Function() searchLoading,
     required TResult Function(SearchResponseModel searchResponseModel)
-        loadSuccess,
-    required TResult Function() loadFailure,
+        searchLoadSuccess,
+    required TResult Function() searchLoadFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(SearchResponseModel searchResponseModel)? loadSuccess,
-    TResult Function()? loadFailure,
+    TResult Function()? searchLoading,
+    TResult Function(SearchResponseModel searchResponseModel)?
+        searchLoadSuccess,
+    TResult Function()? searchLoadFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(SearchResponseModel searchResponseModel)? loadSuccess,
-    TResult Function()? loadFailure,
+    TResult Function()? searchLoading,
+    TResult Function(SearchResponseModel searchResponseModel)?
+        searchLoadSuccess,
+    TResult Function()? searchLoadFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SearchLoadingState value) loading,
-    required TResult Function(_SearchLoadSuccessState value) loadSuccess,
-    required TResult Function(_SearchLoadFailureState value) loadFailure,
+    required TResult Function(_SearchLoadingState value) searchLoading,
+    required TResult Function(_SearchLoadSuccessState value) searchLoadSuccess,
+    required TResult Function(_SearchLoadFailureState value) searchLoadFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_SearchLoadingState value)? loading,
-    TResult Function(_SearchLoadSuccessState value)? loadSuccess,
-    TResult Function(_SearchLoadFailureState value)? loadFailure,
+    TResult Function(_SearchLoadingState value)? searchLoading,
+    TResult Function(_SearchLoadSuccessState value)? searchLoadSuccess,
+    TResult Function(_SearchLoadFailureState value)? searchLoadFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SearchLoadingState value)? loading,
-    TResult Function(_SearchLoadSuccessState value)? loadSuccess,
-    TResult Function(_SearchLoadFailureState value)? loadFailure,
+    TResult Function(_SearchLoadingState value)? searchLoading,
+    TResult Function(_SearchLoadSuccessState value)? searchLoadSuccess,
+    TResult Function(_SearchLoadFailureState value)? searchLoadFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -266,13 +268,13 @@ class _$_SearchLoadingState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SearchState.loading()';
+    return 'SearchState.searchLoading()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'SearchState.loading'));
+    properties.add(DiagnosticsProperty('type', 'SearchState.searchLoading'));
   }
 
   @override
@@ -287,34 +289,36 @@ class _$_SearchLoadingState
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loading,
+    required TResult Function() searchLoading,
     required TResult Function(SearchResponseModel searchResponseModel)
-        loadSuccess,
-    required TResult Function() loadFailure,
+        searchLoadSuccess,
+    required TResult Function() searchLoadFailure,
   }) {
-    return loading();
+    return searchLoading();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(SearchResponseModel searchResponseModel)? loadSuccess,
-    TResult Function()? loadFailure,
+    TResult Function()? searchLoading,
+    TResult Function(SearchResponseModel searchResponseModel)?
+        searchLoadSuccess,
+    TResult Function()? searchLoadFailure,
   }) {
-    return loading?.call();
+    return searchLoading?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(SearchResponseModel searchResponseModel)? loadSuccess,
-    TResult Function()? loadFailure,
+    TResult Function()? searchLoading,
+    TResult Function(SearchResponseModel searchResponseModel)?
+        searchLoadSuccess,
+    TResult Function()? searchLoadFailure,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading();
+    if (searchLoading != null) {
+      return searchLoading();
     }
     return orElse();
   }
@@ -322,33 +326,33 @@ class _$_SearchLoadingState
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SearchLoadingState value) loading,
-    required TResult Function(_SearchLoadSuccessState value) loadSuccess,
-    required TResult Function(_SearchLoadFailureState value) loadFailure,
+    required TResult Function(_SearchLoadingState value) searchLoading,
+    required TResult Function(_SearchLoadSuccessState value) searchLoadSuccess,
+    required TResult Function(_SearchLoadFailureState value) searchLoadFailure,
   }) {
-    return loading(this);
+    return searchLoading(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_SearchLoadingState value)? loading,
-    TResult Function(_SearchLoadSuccessState value)? loadSuccess,
-    TResult Function(_SearchLoadFailureState value)? loadFailure,
+    TResult Function(_SearchLoadingState value)? searchLoading,
+    TResult Function(_SearchLoadSuccessState value)? searchLoadSuccess,
+    TResult Function(_SearchLoadFailureState value)? searchLoadFailure,
   }) {
-    return loading?.call(this);
+    return searchLoading?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SearchLoadingState value)? loading,
-    TResult Function(_SearchLoadSuccessState value)? loadSuccess,
-    TResult Function(_SearchLoadFailureState value)? loadFailure,
+    TResult Function(_SearchLoadingState value)? searchLoading,
+    TResult Function(_SearchLoadSuccessState value)? searchLoadSuccess,
+    TResult Function(_SearchLoadFailureState value)? searchLoadFailure,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading(this);
+    if (searchLoading != null) {
+      return searchLoading(this);
     }
     return orElse();
   }
@@ -403,14 +407,14 @@ class _$_SearchLoadSuccessState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SearchState.loadSuccess(searchResponseModel: $searchResponseModel)';
+    return 'SearchState.searchLoadSuccess(searchResponseModel: $searchResponseModel)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'SearchState.loadSuccess'))
+      ..add(DiagnosticsProperty('type', 'SearchState.searchLoadSuccess'))
       ..add(DiagnosticsProperty('searchResponseModel', searchResponseModel));
   }
 
@@ -436,34 +440,36 @@ class _$_SearchLoadSuccessState
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loading,
+    required TResult Function() searchLoading,
     required TResult Function(SearchResponseModel searchResponseModel)
-        loadSuccess,
-    required TResult Function() loadFailure,
+        searchLoadSuccess,
+    required TResult Function() searchLoadFailure,
   }) {
-    return loadSuccess(searchResponseModel);
+    return searchLoadSuccess(searchResponseModel);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(SearchResponseModel searchResponseModel)? loadSuccess,
-    TResult Function()? loadFailure,
+    TResult Function()? searchLoading,
+    TResult Function(SearchResponseModel searchResponseModel)?
+        searchLoadSuccess,
+    TResult Function()? searchLoadFailure,
   }) {
-    return loadSuccess?.call(searchResponseModel);
+    return searchLoadSuccess?.call(searchResponseModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(SearchResponseModel searchResponseModel)? loadSuccess,
-    TResult Function()? loadFailure,
+    TResult Function()? searchLoading,
+    TResult Function(SearchResponseModel searchResponseModel)?
+        searchLoadSuccess,
+    TResult Function()? searchLoadFailure,
     required TResult orElse(),
   }) {
-    if (loadSuccess != null) {
-      return loadSuccess(searchResponseModel);
+    if (searchLoadSuccess != null) {
+      return searchLoadSuccess(searchResponseModel);
     }
     return orElse();
   }
@@ -471,33 +477,33 @@ class _$_SearchLoadSuccessState
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SearchLoadingState value) loading,
-    required TResult Function(_SearchLoadSuccessState value) loadSuccess,
-    required TResult Function(_SearchLoadFailureState value) loadFailure,
+    required TResult Function(_SearchLoadingState value) searchLoading,
+    required TResult Function(_SearchLoadSuccessState value) searchLoadSuccess,
+    required TResult Function(_SearchLoadFailureState value) searchLoadFailure,
   }) {
-    return loadSuccess(this);
+    return searchLoadSuccess(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_SearchLoadingState value)? loading,
-    TResult Function(_SearchLoadSuccessState value)? loadSuccess,
-    TResult Function(_SearchLoadFailureState value)? loadFailure,
+    TResult Function(_SearchLoadingState value)? searchLoading,
+    TResult Function(_SearchLoadSuccessState value)? searchLoadSuccess,
+    TResult Function(_SearchLoadFailureState value)? searchLoadFailure,
   }) {
-    return loadSuccess?.call(this);
+    return searchLoadSuccess?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SearchLoadingState value)? loading,
-    TResult Function(_SearchLoadSuccessState value)? loadSuccess,
-    TResult Function(_SearchLoadFailureState value)? loadFailure,
+    TResult Function(_SearchLoadingState value)? searchLoading,
+    TResult Function(_SearchLoadSuccessState value)? searchLoadSuccess,
+    TResult Function(_SearchLoadFailureState value)? searchLoadFailure,
     required TResult orElse(),
   }) {
-    if (loadSuccess != null) {
-      return loadSuccess(this);
+    if (searchLoadSuccess != null) {
+      return searchLoadSuccess(this);
     }
     return orElse();
   }
@@ -543,13 +549,14 @@ class _$_SearchLoadFailureState
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SearchState.loadFailure()';
+    return 'SearchState.searchLoadFailure()';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'SearchState.loadFailure'));
+    properties
+        .add(DiagnosticsProperty('type', 'SearchState.searchLoadFailure'));
   }
 
   @override
@@ -565,34 +572,36 @@ class _$_SearchLoadFailureState
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loading,
+    required TResult Function() searchLoading,
     required TResult Function(SearchResponseModel searchResponseModel)
-        loadSuccess,
-    required TResult Function() loadFailure,
+        searchLoadSuccess,
+    required TResult Function() searchLoadFailure,
   }) {
-    return loadFailure();
+    return searchLoadFailure();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(SearchResponseModel searchResponseModel)? loadSuccess,
-    TResult Function()? loadFailure,
+    TResult Function()? searchLoading,
+    TResult Function(SearchResponseModel searchResponseModel)?
+        searchLoadSuccess,
+    TResult Function()? searchLoadFailure,
   }) {
-    return loadFailure?.call();
+    return searchLoadFailure?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(SearchResponseModel searchResponseModel)? loadSuccess,
-    TResult Function()? loadFailure,
+    TResult Function()? searchLoading,
+    TResult Function(SearchResponseModel searchResponseModel)?
+        searchLoadSuccess,
+    TResult Function()? searchLoadFailure,
     required TResult orElse(),
   }) {
-    if (loadFailure != null) {
-      return loadFailure();
+    if (searchLoadFailure != null) {
+      return searchLoadFailure();
     }
     return orElse();
   }
@@ -600,33 +609,33 @@ class _$_SearchLoadFailureState
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_SearchLoadingState value) loading,
-    required TResult Function(_SearchLoadSuccessState value) loadSuccess,
-    required TResult Function(_SearchLoadFailureState value) loadFailure,
+    required TResult Function(_SearchLoadingState value) searchLoading,
+    required TResult Function(_SearchLoadSuccessState value) searchLoadSuccess,
+    required TResult Function(_SearchLoadFailureState value) searchLoadFailure,
   }) {
-    return loadFailure(this);
+    return searchLoadFailure(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_SearchLoadingState value)? loading,
-    TResult Function(_SearchLoadSuccessState value)? loadSuccess,
-    TResult Function(_SearchLoadFailureState value)? loadFailure,
+    TResult Function(_SearchLoadingState value)? searchLoading,
+    TResult Function(_SearchLoadSuccessState value)? searchLoadSuccess,
+    TResult Function(_SearchLoadFailureState value)? searchLoadFailure,
   }) {
-    return loadFailure?.call(this);
+    return searchLoadFailure?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_SearchLoadingState value)? loading,
-    TResult Function(_SearchLoadSuccessState value)? loadSuccess,
-    TResult Function(_SearchLoadFailureState value)? loadFailure,
+    TResult Function(_SearchLoadingState value)? searchLoading,
+    TResult Function(_SearchLoadSuccessState value)? searchLoadSuccess,
+    TResult Function(_SearchLoadFailureState value)? searchLoadFailure,
     required TResult orElse(),
   }) {
-    if (loadFailure != null) {
-      return loadFailure(this);
+    if (searchLoadFailure != null) {
+      return searchLoadFailure(this);
     }
     return orElse();
   }

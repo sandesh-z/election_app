@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:election_app/features/home/domain/usecases/get_home_page_party_data_usecase.dart';
-import 'package:election_app/features/home/presentation/bloc/home_bloc.dart';
+import 'package:election_app/features/home/presentation/bloc/home_bloc/home_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 

@@ -34,12 +34,6 @@ class MyApp extends StatelessWidget {
           create: (searchcontext) => HomeBloc(getIt<GetHomePageDataUseCase>())
             ..add(HomeEvent.loadHomePageData()),
         ),
-        BlocProvider(
-          create: (searchoptionscontext) => SearchDetailBloc(
-              getIt<GetHomePageDataUseCase>(),
-              getIt<GetSearchPageDataUseCase>())
-            ..add(SearchDetailEvent.loadSearchOptions()),
-        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

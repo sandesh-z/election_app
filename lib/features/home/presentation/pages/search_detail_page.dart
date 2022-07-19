@@ -1,3 +1,4 @@
+import 'package:election_app/features/home/presentation/widgets/search_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,6 +7,7 @@ import '../../domain/constants/item_type.dart';
 import '../../domain/entities/district_details/district_name.dart';
 import '../../domain/entities/municipality_details/municipality_name.dart';
 import '../../domain/entities/pradesh_details/pradesh_name.dart';
+import '../../domain/usecases/get_homepage_data_usecase.dart';
 import '../../domain/usecases/get_searchpage_data_usecase.dart';
 import '../bloc/search_detail_bloc/search_detail_bloc.dart';
 
@@ -29,145 +31,170 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
       appBar: AppBar(
         title: const Text("स्थानीय तहको निर्वाचन २०७९"),
       ),
-      body: BlocConsumer<SearchDetailBloc, SearchDetailState>(
-        listener: (context, state) {
-          state.map(
-              searchOptionLoading: (s) {},
-              searchOptionLoadFailure: (s) {},
-              searchOptionLoadSuccess: (s) {},
-              searchDataLoading: (s) {},
-              searchDataLoadFailure: (s) {},
-              searchDataLoadSuccess: (s) {});
-        },
-        builder: (buildcontext, state) {
-          return state.map(
-              searchOptionLoading: (s) =>
-                  const Center(child: CircularProgressIndicator()),
-              searchOptionLoadFailure: (s) => Center(
-                    child: Column(
-                      children: [
-                        const Text("No connection.Try again"),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.restart_alt))
-                      ],
+      body: BlocProvider(
+        create: (searchoptionscontext) => SearchDetailBloc(
+            getIt<GetHomePageDataUseCase>(), getIt<GetSearchPageDataUseCase>())
+          ..add(SearchDetailEvent.loadSearchOptions()),
+        child: BlocConsumer<SearchDetailBloc, SearchDetailState>(
+          listener: (context, state) {
+            state.map(
+                searchOptionLoading: (s) {},
+                searchOptionLoadFailure: (s) {},
+                searchOptionLoadSuccess: (s) {},
+                searchDataLoading: (s) {},
+                searchDataLoadFailure: (s) {},
+                searchDataLoadSuccess: (s) {});
+          },
+          builder: (buildcontext, state) {
+            return state.map(
+                searchOptionLoading: (s) =>
+                    const Center(child: CircularProgressIndicator()),
+                searchOptionLoadFailure: (s) => Center(
+                      child: Column(
+                        children: [
+                          const Text("No connection.Try again"),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.restart_alt))
+                        ],
+                      ),
                     ),
-                  ),
-              searchOptionLoadSuccess: (s) {
-                final districtLength =
-                    s.searchOptionsdata.items![1].data.length;
+                searchOptionLoadSuccess: (s) {
+                  final districtLength =
+                      s.searchOptionsdata.items![1].data.length;
 
-                final homeData = s.searchOptionsdata;
+                  final homeData = s.searchOptionsdata;
 
-                final provinceFromResponse = s.searchOptionsdata.items?.where(
-                        (element) => element.type == ItemType.PRADESH) ??
-                    [];
-                final districtsFromResponse = s.searchOptionsdata.items?.where(
-                        (element) => element.type == ItemType.DISTRICT) ??
-                    [];
-                final municipalitiesFromResponse = s.searchOptionsdata.items
-                        ?.where((element) =>
-                            element.type == ItemType.MUNICIPALITY) ??
-                    [];
-                List<PradeshName>? provinces = [];
-                List<DistrictsName>? districts = [];
-                List<MunicipalityName>? municipalities = [];
+                  final provinceFromResponse = s.searchOptionsdata.items?.where(
+                          (element) => element.type == ItemType.PRADESH) ??
+                      [];
+                  final districtsFromResponse = s.searchOptionsdata.items
+                          ?.where(
+                              (element) => element.type == ItemType.DISTRICT) ??
+                      [];
+                  final municipalitiesFromResponse = s.searchOptionsdata.items
+                          ?.where((element) =>
+                              element.type == ItemType.MUNICIPALITY) ??
+                      [];
+                  List<PradeshName>? provinces = [];
+                  List<DistrictsName>? districts = [];
+                  List<MunicipalityName>? municipalities = [];
 
-                if (provinceFromResponse.isNotEmpty) {
-                  provinces = provinceFromResponse.first.data
-                      .cast<Map<String, dynamic>>()
-                      .map((e) => PradeshName.fromJson(e))
-                      .toList();
-                }
-                if (districtsFromResponse.isNotEmpty) {
-                  final districtMaps = districtsFromResponse.first.data
-                      .cast<Map<String, dynamic>>();
+                  if (provinceFromResponse.isNotEmpty) {
+                    provinces = provinceFromResponse.first.data
+                        .cast<Map<String, dynamic>>()
+                        .map((e) => PradeshName.fromJson(e))
+                        .toList();
+                  }
+                  if (districtsFromResponse.isNotEmpty) {
+                    final districtMaps = districtsFromResponse.first.data
+                        .cast<Map<String, dynamic>>();
 
-                  districts = districtMaps.map((e) {
-                    // debugPrint(e.toString());
-                    return DistrictsName.fromJson(e);
-                  }).toList();
-                }
-                if (municipalitiesFromResponse.isNotEmpty) {
-                  municipalities = municipalitiesFromResponse.first.data
-                      .cast<Map<String, dynamic>>()
-                      .map((e) => MunicipalityName.fromJson(e))
-                      .toList();
-                }
+                    districts = districtMaps.map((e) {
+                      // debugPrint(e.toString());
+                      return DistrictsName.fromJson(e);
+                    }).toList();
+                  }
+                  if (municipalitiesFromResponse.isNotEmpty) {
+                    municipalities = municipalitiesFromResponse.first.data
+                        .cast<Map<String, dynamic>>()
+                        .map((e) => MunicipalityName.fromJson(e))
+                        .toList();
+                  }
 
-                //Search province, district and municipality list
+                  //Search province, district and municipality list
 
-                return ListView(
-                  children: [
-                    buildPradeshDropDown(provinces: provinces),
-                    buildDistrictDropDownList(
-                        districts: selectedProvinceId == null ? [] : districts,
-                        provinceId: selectedProvinceId),
-                    buildMunicipalityDropDownList(
-                        municipalities:
-                            selectedDistrictId == null ? [] : municipalities,
-                        districtId: selectedDistrictId),
-                    TextButton(
-                        onPressed: selectedMunicipalityId == null
-                            ? null
-                            : () async {
-                                final usecase =
-                                    getIt<GetSearchPageDataUseCase>();
+                  return ListView(
+                    children: [
+                      buildPradeshDropDown(provinces: provinces),
+                      buildDistrictDropDownList(
+                          districts:
+                              selectedProvinceId == null ? [] : districts,
+                          provinceId: selectedProvinceId),
+                      buildMunicipalityDropDownList(
+                          municipalities:
+                              selectedDistrictId == null ? [] : municipalities,
+                          districtId: selectedDistrictId),
+                      TextButton(
+                          onPressed: selectedMunicipalityId == null
+                              ? null
+                              : () async {
+                                  // final usecase =
+                                  //     getIt<GetSearchPageDataUseCase>();
 
-                                if (selectedMunicipalityId != null) {
-                                  final result = await usecase(SearchParams(
-                                      palikaId: selectedMunicipalityId!));
-                                }
+                                  // if (selectedMunicipalityId != null) {
+                                  //   final result = await usecase(SearchParams(
+                                  //       palikaId: selectedMunicipalityId!));
+                                  // }
 
-                                BlocProvider.of<SearchDetailBloc>(context)
-                                    .add(SearchDetailEvent.loadSearchData());
-                                // BlocProvider.of<SearchDetailBloc>(context)
-                                //     .add(SearchDetailEvent.loadSearchOptions());
-                              },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              "खोज्नुहोस्",
-                            ),
-                            SizedBox(width: 8),
-                            Icon(Icons.search, color: Colors.white)
-                          ],
-                        )),
-                  ],
-                );
-              },
-              searchDataLoading: (s) =>
-                  const Center(child: CircularProgressIndicator()),
-              searchDataLoadFailure: (s) => Center(
-                    child: Column(
-                      children: [
-                        const Text("No connection.Try again"),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.restart_alt))
-                      ],
+                                  BlocProvider.of<SearchDetailBloc>(
+                                          buildcontext)
+                                      .add(SearchDetailEvent.loadSearchData(
+                                          palikaId:
+                                              selectedMunicipalityId ?? 0));
+                                },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                "खोज्नुहोस्",
+                              ),
+                              SizedBox(width: 8),
+                              Icon(Icons.search, color: Colors.white)
+                            ],
+                          )),
+                    ],
+                  );
+                },
+                searchDataLoading: (s) =>
+                    const Center(child: CircularProgressIndicator()),
+                searchDataLoadFailure: (s) => Center(
+                      child: Column(
+                        children: [
+                          const Text("No connection.Try again"),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.restart_alt))
+                        ],
+                      ),
                     ),
-                  ),
-              searchDataLoadSuccess: (s) {
-                return ListView(
-                  children: [
-                    Text(s.searchDataResponseModel.data[0].municipalityName),
-                    Text(s.searchDataResponseModel.data[0].postName),
-                    Text(s.searchDataResponseModel.data[0].winnerPartyName),
-                    const Text("निर्वाचित"),
-                    Row(
-                      children: [
-                        Text(
-                            "${s.searchDataResponseModel.data[0].winnerCanditate} - "),
-                        Text(
-                            "${s.searchDataResponseModel.data[0].winnerVoteCount} मत")
-                      ],
-                    ),
-                  ],
-                );
-              });
-        },
+                searchDataLoadSuccess: (s) {
+                  return ListView(
+                    children: [
+                      buildRowTile(
+                        s.searchDataResponseModel.data[0].winnerPartyName,
+                        0,
+                        s.searchDataResponseModel.data[0].winnerCanditate,
+                        s.searchDataResponseModel.data[0].winnerVoteCount,
+                        postName: s.searchDataResponseModel.data[0].postName,
+                      ),
+                      buildRowTile(
+                        s.searchDataResponseModel.data[0].runnerUpPartyName,
+                        1,
+                        s.searchDataResponseModel.data[0].runnerUpCanditate,
+                        s.searchDataResponseModel.data[0].runnerUpVoteCount,
+                        postName: "",
+                      ),
+                      const SizedBox(height: 50),
+                      buildRowTile(
+                        s.searchDataResponseModel.data[1].winnerPartyName,
+                        0,
+                        s.searchDataResponseModel.data[1].winnerCanditate,
+                        s.searchDataResponseModel.data[1].winnerVoteCount,
+                        postName: s.searchDataResponseModel.data[1].postName,
+                      ),
+                      buildRowTile(
+                        s.searchDataResponseModel.data[1].runnerUpPartyName,
+                        1,
+                        s.searchDataResponseModel.data[1].runnerUpCanditate,
+                        s.searchDataResponseModel.data[1].runnerUpVoteCount,
+                        postName: "",
+                      ),
+                    ],
+                  );
+                });
+          },
+        ),
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:election_app/features/home/domain/entities/Canditate/candidate.dart';
 import 'package:election_app/features/home/presentation/widgets/search_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,14 +30,6 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("स्थानीय तहको निर्वाचन २०७९"),
-        // actions: [
-        //   IconButton(
-        //     onPressed: () {
-
-        //     },
-        //     icon: const Icon(Icons.restart_alt),
-        //   ),
-        // ],
       ),
       body: BlocProvider(
         create: (searchoptionscontext) => SearchDetailBloc(
@@ -126,14 +117,6 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                           onPressed: selectedMunicipalityId == null
                               ? null
                               : () async {
-                                  // final usecase =
-                                  //     getIt<GetSearchPageDataUseCase>();
-
-                                  // if (selectedMunicipalityId != null) {
-                                  //   final result = await usecase(SearchParams(
-                                  //       palikaId: selectedMunicipalityId!));
-                                  // }
-
                                   BlocProvider.of<SearchDetailBloc>(
                                           buildcontext)
                                       .add(SearchDetailEvent.loadSearchData(
@@ -172,56 +155,15 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                              s.searchDataResponseModel.data[0]
-                                  .municipalityName,
-                              style: const TextStyle(fontSize: 25)),
+                            s.searchDataResponseModel.data[0].municipalityName,
+                            style: const TextStyle(fontSize: 25),
+                          ),
                         ],
                       ),
-                      Card(
-                        color: Colors.grey.shade200,
-                        elevation: 8.0,
-                        // shadowColor: Colors.green,
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(s.searchDataResponseModel.data[0].postName,
-                                    style: const TextStyle(fontSize: 25)),
-                              ],
-                            ),
-                            buildContestedCandidateRow(
-                                s.searchDataResponseModel.data[0], true),
-                            const Divider(thickness: 2),
-                            if (s.searchDataResponseModel.data[0]
-                                    .winnerVoteCount !=
-                                -1)
-                              buildContestedCandidateRow(
-                                  s.searchDataResponseModel.data[0], false),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Card(
-                        color: Colors.grey.shade200,
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(s.searchDataResponseModel.data[1].postName,
-                                    style: const TextStyle(fontSize: 25)),
-                              ],
-                            ),
-                            buildContestedCandidateRow(
-                                s.searchDataResponseModel.data[1], true),
-                            const Divider(thickness: 2),
-                            if (s.searchDataResponseModel.data[0]
-                                    .winnerVoteCount !=
-                                -1)
-                              buildContestedCandidateRow(
-                                  s.searchDataResponseModel.data[1], false),
-                          ],
-                        ),
-                      )
+                      candidateCardFrom(
+                          candidate: s.searchDataResponseModel.data.first),
+                      candidateCardFrom(
+                          candidate: s.searchDataResponseModel.data[1]),
                     ],
                   );
                 });

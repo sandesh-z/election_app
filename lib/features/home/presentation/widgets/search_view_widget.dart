@@ -24,7 +24,7 @@ Widget buildElectedWidgetFrom({required Candidate candidate}) {
   if (didCandidateWinUncontested(candidate)) {
     return buildUncontestedElectedCandidateCardFrom(candidate: candidate);
   } else {
-    return const SizedBox();
+    return buildContestedElectedCandidateFrom(candidate: candidate);
   }
 }
 
@@ -42,9 +42,19 @@ Widget buildUncontestedElectedCandidateCardFrom(
 
 Widget buildContestedElectedCandidateFrom({required Candidate candidate}) {
   return Card(
+    color: Colors.grey.shade200,
     child: Column(
       children: [
+        Row(
+          children: [
+            Text(
+              candidate.postName,
+              style: const TextStyle(fontSize: 25),
+            ),
+          ],
+        ),
         buildContestedCandidateRow(candidate),
+        const Divider(thickness: 2),
         buildContestedCandidateRow(candidate, false)
       ],
     ),

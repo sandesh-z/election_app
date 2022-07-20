@@ -106,6 +106,7 @@ class PartyWiseDetail extends StatelessWidget {
                     ]),
                     ListView.builder(
                         shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         itemCount: s.homeWinnerPartyPagedata.data.length,
                         itemBuilder: (BuildContext context, int index) {
                           return buildCard(s, index);

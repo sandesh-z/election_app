@@ -30,6 +30,14 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("स्थानीय तहको निर्वाचन २०७९"),
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+
+        //     },
+        //     icon: const Icon(Icons.restart_alt),
+        //   ),
+        // ],
       ),
       body: BlocProvider(
         create: (searchoptionscontext) => SearchDetailBloc(
@@ -54,7 +62,10 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                         children: [
                           const Text("No connection.Try again"),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                BlocProvider.of<SearchDetailBloc>(buildcontext)
+                                    .add(SearchDetailEvent.loadSearchOptions());
+                              },
                               icon: const Icon(Icons.restart_alt))
                         ],
                       ),
@@ -156,35 +167,70 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                 searchDataLoadSuccess: (s) {
                   return ListView(
                     children: [
-                      buildRowTile(
-                        s.searchDataResponseModel.data[0].winnerPartyName,
-                        0,
-                        s.searchDataResponseModel.data[0].winnerCanditate,
-                        s.searchDataResponseModel.data[0].winnerVoteCount,
-                        postName: s.searchDataResponseModel.data[0].postName,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                              s.searchDataResponseModel.data[0]
+                                  .municipalityName,
+                              style: const TextStyle(fontSize: 25)),
+                        ],
                       ),
-                      buildRowTile(
-                        s.searchDataResponseModel.data[0].runnerUpPartyName,
-                        1,
-                        s.searchDataResponseModel.data[0].runnerUpCanditate,
-                        s.searchDataResponseModel.data[0].runnerUpVoteCount,
-                        postName: "",
+                      Card(
+                        color: Colors.grey.shade200,
+                        elevation: 8.0,
+                        // shadowColor: Colors.green,
+                        child: Column(
+                          children: [
+                            buildRowTile(
+                              s.searchDataResponseModel.data[0].winnerPartyName,
+                              0,
+                              s.searchDataResponseModel.data[0].winnerCanditate,
+                              s.searchDataResponseModel.data[0].winnerVoteCount,
+                              postName:
+                                  s.searchDataResponseModel.data[0].postName,
+                            ),
+                            const Divider(thickness: 2),
+                            buildRowTile(
+                              s.searchDataResponseModel.data[0]
+                                  .runnerUpPartyName,
+                              1,
+                              s.searchDataResponseModel.data[0]
+                                  .runnerUpCanditate,
+                              s.searchDataResponseModel.data[0]
+                                  .runnerUpVoteCount,
+                              postName: "",
+                            ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 50),
-                      buildRowTile(
-                        s.searchDataResponseModel.data[1].winnerPartyName,
-                        0,
-                        s.searchDataResponseModel.data[1].winnerCanditate,
-                        s.searchDataResponseModel.data[1].winnerVoteCount,
-                        postName: s.searchDataResponseModel.data[1].postName,
-                      ),
-                      buildRowTile(
-                        s.searchDataResponseModel.data[1].runnerUpPartyName,
-                        1,
-                        s.searchDataResponseModel.data[1].runnerUpCanditate,
-                        s.searchDataResponseModel.data[1].runnerUpVoteCount,
-                        postName: "",
-                      ),
+                      const SizedBox(height: 10),
+                      Card(
+                        color: Colors.grey.shade200,
+                        child: Column(
+                          children: [
+                            buildRowTile(
+                              s.searchDataResponseModel.data[1].winnerPartyName,
+                              0,
+                              s.searchDataResponseModel.data[1].winnerCanditate,
+                              s.searchDataResponseModel.data[1].winnerVoteCount,
+                              postName:
+                                  s.searchDataResponseModel.data[1].postName,
+                            ),
+                            const Divider(thickness: 2),
+                            buildRowTile(
+                              s.searchDataResponseModel.data[1]
+                                  .runnerUpPartyName,
+                              1,
+                              s.searchDataResponseModel.data[1]
+                                  .runnerUpCanditate,
+                              s.searchDataResponseModel.data[1]
+                                  .runnerUpVoteCount,
+                              postName: "",
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   );
                 });

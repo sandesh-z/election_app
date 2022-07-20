@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+Widget buildContiner(s) {
+  return Container();
+}
+
 Widget buildRowTile(
     String partyName, int status, String canditateName, int voteCount,
     {String postName = ""}) {
@@ -21,7 +25,14 @@ Widget buildRowTile(
           Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Image(image: partyImage),
+              // CircleAvatar(child: Image.network("https://picsum.photos/25")),
+              CircleAvatar(
+                child: ClipRRect(
+                  // borderRadius: 10.0,
+                  child: Image.network("https://picsum.photos/30",
+                      fit: BoxFit.fill),
+                ),
+              ),
               Text(
                 partyName,
                 style: const TextStyle(fontSize: 20),

@@ -149,22 +149,31 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                       ),
                     ),
                 searchDataLoadSuccess: (s) {
-                  return ListView(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            s.searchDataResponseModel.data[0].municipalityName,
-                            style: const TextStyle(fontSize: 25),
-                          ),
-                        ],
-                      ),
-                      candidateCardFrom(
-                          candidate: s.searchDataResponseModel.data.first),
-                      candidateCardFrom(
-                          candidate: s.searchDataResponseModel.data[1]),
-                    ],
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              s.searchDataResponseModel.data[0]
+                                  .municipalityName,
+                              style: const TextStyle(fontSize: 25),
+                            ),
+                          ],
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: s.searchDataResponseModel.data.length,
+                          itemBuilder: (context, index) {
+                            return candidateCardFrom(
+                                candidate:
+                                    s.searchDataResponseModel.data[index]);
+                          },
+                        ),
+                      ],
+                    ),
                   );
                 });
           },

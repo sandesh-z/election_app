@@ -42,7 +42,8 @@ Widget buildUncontestedElectedCandidateCardFrom(
 
 Widget buildContestedElectedCandidateFrom({required Candidate candidate}) {
   return Card(
-    color: Colors.grey.shade200,
+    // color: Colors.grey.shade200,
+    // shadowColor: ,
     child: Column(
       children: [
         Row(

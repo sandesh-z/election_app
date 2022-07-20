@@ -1,3 +1,4 @@
+import 'package:election_app/features/home/domain/entities/Canditate/candidate.dart';
 import 'package:election_app/features/home/presentation/widgets/search_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -182,25 +183,20 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                         // shadowColor: Colors.green,
                         child: Column(
                           children: [
-                            buildRowTile(
-                              s.searchDataResponseModel.data[0].winnerPartyName,
-                              0,
-                              s.searchDataResponseModel.data[0].winnerCanditate,
-                              s.searchDataResponseModel.data[0].winnerVoteCount,
-                              postName:
-                                  s.searchDataResponseModel.data[0].postName,
+                            Row(
+                              children: [
+                                Text(s.searchDataResponseModel.data[0].postName,
+                                    style: const TextStyle(fontSize: 25)),
+                              ],
                             ),
+                            buildContestedCandidateRow(
+                                s.searchDataResponseModel.data[0], true),
                             const Divider(thickness: 2),
-                            buildRowTile(
-                              s.searchDataResponseModel.data[0]
-                                  .runnerUpPartyName,
-                              1,
-                              s.searchDataResponseModel.data[0]
-                                  .runnerUpCanditate,
-                              s.searchDataResponseModel.data[0]
-                                  .runnerUpVoteCount,
-                              postName: "",
-                            ),
+                            if (s.searchDataResponseModel.data[0]
+                                    .winnerVoteCount !=
+                                -1)
+                              buildContestedCandidateRow(
+                                  s.searchDataResponseModel.data[0], false),
                           ],
                         ),
                       ),
@@ -209,25 +205,20 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                         color: Colors.grey.shade200,
                         child: Column(
                           children: [
-                            buildRowTile(
-                              s.searchDataResponseModel.data[1].winnerPartyName,
-                              0,
-                              s.searchDataResponseModel.data[1].winnerCanditate,
-                              s.searchDataResponseModel.data[1].winnerVoteCount,
-                              postName:
-                                  s.searchDataResponseModel.data[1].postName,
+                            Row(
+                              children: [
+                                Text(s.searchDataResponseModel.data[1].postName,
+                                    style: const TextStyle(fontSize: 25)),
+                              ],
                             ),
+                            buildContestedCandidateRow(
+                                s.searchDataResponseModel.data[1], true),
                             const Divider(thickness: 2),
-                            buildRowTile(
-                              s.searchDataResponseModel.data[1]
-                                  .runnerUpPartyName,
-                              1,
-                              s.searchDataResponseModel.data[1]
-                                  .runnerUpCanditate,
-                              s.searchDataResponseModel.data[1]
-                                  .runnerUpVoteCount,
-                              postName: "",
-                            ),
+                            if (s.searchDataResponseModel.data[0]
+                                    .winnerVoteCount !=
+                                -1)
+                              buildContestedCandidateRow(
+                                  s.searchDataResponseModel.data[1], false),
                           ],
                         ),
                       )

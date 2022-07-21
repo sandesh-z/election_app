@@ -26,12 +26,13 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
   int? selectedProvinceId, selectedDistrictId, selectedMunicipalityId;
 
   final GlobalKey<FormFieldState> _districtKey = GlobalKey<FormFieldState>(),
-      _municipalityKey = GlobalKey<FormFieldState>();
+      _municipalityKey = GlobalKey<FormFieldState>(),
+      _provinceKey = GlobalKey<FormFieldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("स्थानीय तहको निर्वाचन २०७९"),
+        title: const Text("स्थानीय तह निर्वाचन २०७९"),
       ),
       body: MultiBlocProvider(
         providers: [
@@ -146,9 +147,10 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                                 children: const [
                                   Text(
                                     "खोज्नुहोस्",
+                                    style: TextStyle(fontSize: 17),
                                   ),
                                   SizedBox(width: 8),
-                                  Icon(Icons.search, color: Colors.white)
+                                  Icon(Icons.search, color: Colors.grey)
                                 ],
                               )),
                         ],
@@ -291,10 +293,12 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                                                       children: const [
                                                         Text(
                                                           "खोज्नुहोस्",
+                                                          style: TextStyle(
+                                                              fontSize: 17),
                                                         ),
                                                         SizedBox(width: 8),
                                                         Icon(Icons.search,
-                                                            color: Colors.white)
+                                                            color: Colors.blue)
                                                       ],
                                                     )),
                                               ],
@@ -302,13 +306,14 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                                           ],
                                         );
                                       },
-                                      loadFailure: (s) => Text("failure"));
+                                      loadFailure: (s) =>
+                                          const Text("failure"));
                                 },
                               ),
                               Expanded(
                                   child: state.map(
-                                searchLoading: (s) =>
-                                    const CircularProgressIndicator(),
+                                searchLoading: (s) => const Center(
+                                    child: CircularProgressIndicator()),
                                 searchLoadSuccess: (_) {
                                   return SingleChildScrollView(
                                     child: Column(
@@ -361,9 +366,10 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
     String? defaultValue = "प्रदेश";
     // int updateProvinceId = 1;
     return DropdownButtonFormField(
+      key: _provinceKey,
       decoration:
-          const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
-      // value: "Please select some value",
+          const InputDecoration(contentPadding: EdgeInsets.only(left: 25)),
+      icon: const Icon(Icons.expand_more, size: 30),
       hint: Center(child: Text(defaultValue)),
       items: provinces
           .map((e) => DropdownMenuItem<String>(
@@ -402,8 +408,8 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
     return DropdownButtonFormField(
         key: _districtKey,
         decoration:
-            const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
-        // value: "Please select some value",
+            const InputDecoration(contentPadding: EdgeInsets.only(left: 25)),
+        icon: const Icon(Icons.expand_more, size: 30),
         hint: const Center(child: Text("जिल्ला")),
         items: districtsOfSelectedProvince
             .map((e) => DropdownMenuItem<String>(
@@ -439,8 +445,8 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
     return DropdownButtonFormField(
         key: _municipalityKey,
         decoration:
-            const InputDecoration(contentPadding: EdgeInsets.only(left: 50)),
-        // value: "Please select some value",
+            const InputDecoration(contentPadding: EdgeInsets.only(left: 25)),
+        icon: const Icon(Icons.expand_more, size: 30),
         hint: const Center(child: Text("नगरपालिका वा गाउँपालिका")),
         items: municipalitiesOfSelectedDistrict
             .map((e) => DropdownMenuItem<String>(

@@ -42,21 +42,24 @@ Widget buildUncontestedElectedCandidateCardFrom(
 
 Widget buildContestedElectedCandidateFrom({required Candidate candidate}) {
   return Card(
-    // color: Colors.grey.shade200,
-    // shadowColor: ,
+    elevation: 8,
     child: Column(
       children: [
         Row(
           children: [
+            const SizedBox(width: 8),
             Text(
               candidate.postName,
-              style: const TextStyle(fontSize: 25),
+              style: const TextStyle(
+                  fontSize: 25, decoration: TextDecoration.underline),
             ),
           ],
         ),
+        const SizedBox(height: 4),
         buildContestedCandidateRow(candidate),
         const Divider(thickness: 2),
-        buildContestedCandidateRow(candidate, false)
+        buildContestedCandidateRow(candidate, false),
+        const SizedBox(height: 8),
       ],
     ),
   );
@@ -146,20 +149,22 @@ Widget buildContestedCandidateRow(Candidate candidate,
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.min,
             children: [
-              // CircleAvatar(child: Image.network("https://picsum.photos/25")),
+              const SizedBox(width: 8),
               Container(
-                height: 50,
-                width: 50,
+                height: 30,
+                width: 30,
                 child: ClipRRect(
                   // borderRadius: 10.0,
                   child: showWinner
                       ? Image.network(
-                          "https://electionapi.truestreamz.com/media/${candidate.winnerPartyLogo}" ??
-                              "https://picsum.photos/200",
+                          candidate.winnerPartyLogo != null
+                              ? "https://electionapi.truestreamz.com/media/${candidate.winnerPartyLogo}"
+                              : "https://via.placeholder.com/150",
                           fit: BoxFit.fill)
                       : Image.network(
-                          "https://electionapi.truestreamz.com/media/${candidate.runnerUpPartyLogo}" ??
-                              "https://picsum.photos/200",
+                          candidate.winnerPartyLogo != null
+                              ? "https://electionapi.truestreamz.com/media/${candidate.runnerUpPartyLogo}"
+                              : "https://via.placeholder.com/150",
                           fit: BoxFit.fill),
                 ),
               ),
@@ -172,53 +177,59 @@ Widget buildContestedCandidateRow(Candidate candidate,
               ),
             ],
           ),
-          SizedBox(
-            height: 50,
-            width: showWinner ? 110 : 150,
-            // color: Colors.green,
-            child: Card(
-                color: showWinner ? Colors.green : Colors.yellow,
-                child: Stack(
-                  children: [
-                    Center(
-                      child: showWinner
-                          ? Row(
-                              children: const [
-                                SizedBox(width: 5),
-                                Text(
-                                  "निर्वाचित",
+          Row(
+            children: [
+              const SizedBox(width: 8),
+              SizedBox(
+                height: 50,
+                width: showWinner ? 110 : 150,
+                // color: Colors.green,
+                child: Card(
+                    color: showWinner ? Colors.green : Colors.yellow.shade400,
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: showWinner
+                              ? Row(
+                                  children: const [
+                                    SizedBox(width: 5),
+                                    Text(
+                                      "निर्वाचित",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                )
+                              : const Text(
+                                  "निकटतम प्रतिद्वन्द्वी",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
+                                      fontSize: 18,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                              ],
-                            )
-                          : const Text(
-                              "निकटतम प्रतिद्वन्द्वी",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                    ),
-                    const SizedBox(width: 5),
-                    Align(
-                        alignment: AlignmentDirectional.centerEnd,
-                        child: showWinner
-                            ? const Icon(
-                                Icons.done,
-                                color: Colors.white,
-                                size: 25,
-                              )
-                            : null),
-                  ],
-                )),
+                        ),
+                        const SizedBox(width: 5),
+                        Align(
+                            alignment: AlignmentDirectional.centerEnd,
+                            child: showWinner
+                                ? const Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                    size: 25,
+                                  )
+                                : null),
+                      ],
+                    )),
+              ),
+            ],
           ),
           Row(
             children: [
+              const SizedBox(width: 16),
               Text(
                   showWinner
                       ? "${candidate.winnerCanditate} - ${candidate.winnerVoteCount} मत"
@@ -230,4 +241,9 @@ Widget buildContestedCandidateRow(Candidate candidate,
       ),
     ],
   );
+}
+
+String getCharacter(int number) {
+  //TODO: CONVERT INTEGER NUMBER TO NEPALI NUMBER
+  return "String";
 }

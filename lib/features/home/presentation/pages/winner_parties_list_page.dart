@@ -26,15 +26,23 @@ class PartyWiseDetail extends StatelessWidget {
             child: Image.asset('assets/icons/logo.png'),
           ),
           actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SearchDetailPage()),
-                  );
-                },
-                icon: const Icon(Icons.search)),
+            Row(
+              children: [
+                const Text(
+                  "खोज्नुहोस्",
+                  style: TextStyle(color: Colors.black, fontSize: 20),
+                ),
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SearchDetailPage()),
+                      );
+                    },
+                    icon: const Icon(Icons.search)),
+              ],
+            ),
           ],
         ),
         body: BlocConsumer<HomePageBloc, HomePageState>(
@@ -60,23 +68,37 @@ class PartyWiseDetail extends StatelessWidget {
                 ),
               );
             }, loadSuccess: (s) {
+              List<Color> partyColors = const [];
+
+              for (int i = 0; i < 15; i++) {
+                // partyColors.add();
+              }
               return SingleChildScrollView(
                 child: Column(
                   children: [
                     SfCircularChart(
-                      title: ChartTitle(text: "स्थानीय तहको निर्वाचन २०७९"),
-                      legend: Legend(isVisible: true),
+                      backgroundColor: Colors.white,
+                      // palette: [],
+                      title: ChartTitle(text: "स्थानीय तह निर्वाचन २०७९"),
+                      legend: Legend(
+                          orientation: LegendItemOrientation.horizontal,
+                          isVisible: true,
+                          overflowMode: LegendItemOverflowMode.wrap,
+                          position: LegendPosition.bottom),
                       series: <CircularSeries>[
-                        PieSeries<ChartData, String>(
-                            dataSource: s.homeWinnerPartyPagedata.data
-                                .map((candidate) => ChartData(
-                                    candidate.partyName,
-                                    candidate.winnerCount.toDouble()))
-                                .toList(),
-                            xValueMapper: (ChartData data, _) => data.x,
-                            yValueMapper: (ChartData data, _) => data.y,
-                            dataLabelSettings:
-                                const DataLabelSettings(isVisible: true))
+                        DoughnutSeries<ChartData, String>(
+                          legendIconType: LegendIconType.rectangle,
+                          innerRadius: '30%',
+                          dataSource: s.homeWinnerPartyPagedata.data
+                              .map((candidate) => ChartData(candidate.partyName,
+                                  candidate.winnerCount.toDouble()))
+                              .toList(),
+                          xValueMapper: (ChartData data, _) => data.x,
+                          yValueMapper: (ChartData data, _) => data.y,
+                          // radius: '50%',
+                          // dataLabelSettings:
+                          //     const DataLabelSettings(isVisible: true)
+                        )
                       ],
                     ),
                     Row(children: const [

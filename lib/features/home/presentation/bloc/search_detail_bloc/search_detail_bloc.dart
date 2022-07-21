@@ -8,12 +8,15 @@ import '../../../../../core/models/no_params.dart';
 import '../../../../../injection.dart';
 import '../../../data/models/HomeResponseModel/home_response_model.dart';
 import '../../../data/models/SearchResponseModel/search_response_model.dart';
+import '../../../domain/entities/ItemWithType/item_with_type.dart';
 
 part 'search_detail_bloc.freezed.dart';
 part 'search_detail_event.dart';
 part 'search_detail_state.dart';
 
 class SearchDetailBloc extends Bloc<SearchDetailEvent, SearchDetailState> {
+  ItemWithType? itemWithType;
+
   GetHomePageDataUseCase getHomePageDataUseCase;
   GetSearchPageDataUseCase getSearchPageDataUseCase;
   SearchDetailBloc(this.getHomePageDataUseCase, this.getSearchPageDataUseCase)

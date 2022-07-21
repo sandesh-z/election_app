@@ -28,19 +28,19 @@ class Candidate extends Equatable {
   final String winnerCanditate;
 
   @JsonKey(name: "No_Of_Vote")
-  final int winnerVoteCount;
+  final int? winnerVoteCount;
 
   @JsonKey(name: "canditate_name_2")
-  final String runnerUpCanditate;
+  final String? runnerUpCanditate;
 
   @JsonKey(name: "party_logo_2")
   final String? runnerUpPartyLogo;
 
   @JsonKey(name: "party_name_2")
-  final String runnerUpPartyName;
+  final String? runnerUpPartyName;
 
   @JsonKey(name: "No_of_Vote2")
-  final int runnerUpVoteCount;
+  final int? runnerUpVoteCount;
 
   @JsonKey(name: "created_at")
   final String? createdDate;

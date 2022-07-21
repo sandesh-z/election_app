@@ -1,3 +1,5 @@
+import 'package:election_app/features/home/presentation/bloc/search_bloc/search_bloc.dart';
+
 import '../../domain/constants/item_type.dart';
 import '../../domain/entities/district_details/district_name.dart';
 import '../../domain/entities/municipality_details/municipality_name.dart';
@@ -111,13 +113,16 @@ class _ElectionHomePageState extends State<ElectionHomePage> {
                             onPressed: selectedMunicipalityId == null
                                 ? null
                                 : () async {
-                                    final usecase =
-                                        getIt<GetSearchPageDataUseCase>();
+                                    // final usecase =
+                                    //     getIt<GetSearchPageDataUseCase>();
 
-                                    if (selectedMunicipalityId != null) {
-                                      final result = await usecase(SearchParams(
-                                          palikaId: selectedMunicipalityId!));
-                                    }
+                                    // if (selectedMunicipalityId != null) {
+                                    //   final result = await usecase(SearchParams(
+                                    //       palikaId: selectedMunicipalityId!));
+                                    BlocProvider.of<SearchBloc>(context).add(
+                                        SearchEvent.loadSearchedData(
+                                            palikaId:
+                                                selectedMunicipalityId ?? 0));
                                   },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SearchEvent {
+  int get palikaId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadSearchedData,
+    required TResult Function(int palikaId) loadSearchedData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loadSearchedData,
+    TResult Function(int palikaId)? loadSearchedData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadSearchedData,
+    TResult Function(int palikaId)? loadSearchedData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +49,10 @@ mixin _$SearchEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $SearchEventCopyWith<SearchEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +60,7 @@ abstract class $SearchEventCopyWith<$Res> {
   factory $SearchEventCopyWith(
           SearchEvent value, $Res Function(SearchEvent) then) =
       _$SearchEventCopyWithImpl<$Res>;
+  $Res call({int palikaId});
 }
 
 /// @nodoc
@@ -64,13 +70,28 @@ class _$SearchEventCopyWithImpl<$Res> implements $SearchEventCopyWith<$Res> {
   final SearchEvent _value;
   // ignore: unused_field
   final $Res Function(SearchEvent) _then;
+
+  @override
+  $Res call({
+    Object? palikaId = freezed,
+  }) {
+    return _then(_value.copyWith(
+      palikaId: palikaId == freezed
+          ? _value.palikaId
+          : palikaId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$$_LoadSearchDataEventCopyWith<$Res> {
+abstract class _$$_LoadSearchDataEventCopyWith<$Res>
+    implements $SearchEventCopyWith<$Res> {
   factory _$$_LoadSearchDataEventCopyWith(_$_LoadSearchDataEvent value,
           $Res Function(_$_LoadSearchDataEvent) then) =
       __$$_LoadSearchDataEventCopyWithImpl<$Res>;
+  @override
+  $Res call({int palikaId});
 }
 
 /// @nodoc
@@ -83,6 +104,18 @@ class __$$_LoadSearchDataEventCopyWithImpl<$Res>
 
   @override
   _$_LoadSearchDataEvent get _value => super._value as _$_LoadSearchDataEvent;
+
+  @override
+  $Res call({
+    Object? palikaId = freezed,
+  }) {
+    return _then(_$_LoadSearchDataEvent(
+      palikaId: palikaId == freezed
+          ? _value.palikaId
+          : palikaId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
@@ -90,52 +123,66 @@ class __$$_LoadSearchDataEventCopyWithImpl<$Res>
 class _$_LoadSearchDataEvent
     with DiagnosticableTreeMixin
     implements _LoadSearchDataEvent {
-  _$_LoadSearchDataEvent();
+  _$_LoadSearchDataEvent({required this.palikaId});
+
+  @override
+  final int palikaId;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SearchEvent.loadSearchedData()';
+    return 'SearchEvent.loadSearchedData(palikaId: $palikaId)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'SearchEvent.loadSearchedData'));
+    properties
+      ..add(DiagnosticsProperty('type', 'SearchEvent.loadSearchedData'))
+      ..add(DiagnosticsProperty('palikaId', palikaId));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_LoadSearchDataEvent);
+        (other.runtimeType == runtimeType &&
+            other is _$_LoadSearchDataEvent &&
+            const DeepCollectionEquality().equals(other.palikaId, palikaId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(palikaId));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_LoadSearchDataEventCopyWith<_$_LoadSearchDataEvent> get copyWith =>
+      __$$_LoadSearchDataEventCopyWithImpl<_$_LoadSearchDataEvent>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() loadSearchedData,
+    required TResult Function(int palikaId) loadSearchedData,
   }) {
-    return loadSearchedData();
+    return loadSearchedData(palikaId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? loadSearchedData,
+    TResult Function(int palikaId)? loadSearchedData,
   }) {
-    return loadSearchedData?.call();
+    return loadSearchedData?.call(palikaId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadSearchedData,
+    TResult Function(int palikaId)? loadSearchedData,
     required TResult orElse(),
   }) {
     if (loadSearchedData != null) {
-      return loadSearchedData();
+      return loadSearchedData(palikaId);
     }
     return orElse();
   }
@@ -170,7 +217,15 @@ class _$_LoadSearchDataEvent
 }
 
 abstract class _LoadSearchDataEvent implements SearchEvent {
-  factory _LoadSearchDataEvent() = _$_LoadSearchDataEvent;
+  factory _LoadSearchDataEvent({required final int palikaId}) =
+      _$_LoadSearchDataEvent;
+
+  @override
+  int get palikaId;
+  @override
+  @JsonKey(ignore: true)
+  _$$_LoadSearchDataEventCopyWith<_$_LoadSearchDataEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

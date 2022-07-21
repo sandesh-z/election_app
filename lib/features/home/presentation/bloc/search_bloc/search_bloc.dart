@@ -19,7 +19,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   void _onLoadSearchDataEvent(
       _LoadSearchDataEvent event, Emitter<SearchState> emit) async {
     final usecase = getIt<GetSearchPageDataUseCase>();
-    final result = await usecase(SearchParams(palikaId: 7));
+    final result = await usecase(SearchParams(palikaId: event.palikaId));
 
     emit(result.fold((l) => SearchState.searchLoadFailure(),
         (r) => SearchState.searchLoadSuccess(searchResponseModel: r)));

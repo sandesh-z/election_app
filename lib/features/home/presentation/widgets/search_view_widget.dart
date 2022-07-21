@@ -144,19 +144,30 @@ Widget buildContestedCandidateRow(Candidate candidate,
         children: [
           Row(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
             children: [
               // CircleAvatar(child: Image.network("https://picsum.photos/25")),
-              CircleAvatar(
+              Container(
+                height: 50,
+                width: 50,
                 child: ClipRRect(
                   // borderRadius: 10.0,
-                  child: Image.network("https://picsum.photos/30",
-                      fit: BoxFit.fill),
+                  child: showWinner
+                      ? Image.network(
+                          "https://electionapi.truestreamz.com/media/${candidate.winnerPartyLogo}" ??
+                              "https://picsum.photos/200",
+                          fit: BoxFit.fill)
+                      : Image.network(
+                          "https://electionapi.truestreamz.com/media/${candidate.runnerUpPartyLogo}" ??
+                              "https://picsum.photos/200",
+                          fit: BoxFit.fill),
                 ),
               ),
+              const SizedBox(width: 5),
               Text(
                 showWinner
                     ? candidate.winnerPartyName
-                    : candidate.runnerUpPartyName,
+                    : candidate.runnerUpPartyName ?? "",
                 style: const TextStyle(fontSize: 20),
               ),
             ],

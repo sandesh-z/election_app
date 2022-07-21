@@ -1,3 +1,4 @@
+import 'package:election_app/features/home/presentation/bloc/home_bloc/home_bloc.dart';
 import 'package:election_app/features/home/presentation/widgets/search_view_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import '../../domain/entities/municipality_details/municipality_name.dart';
 import '../../domain/entities/pradesh_details/pradesh_name.dart';
 import '../../domain/usecases/get_homepage_data_usecase.dart';
 import '../../domain/usecases/get_searchpage_data_usecase.dart';
+import '../bloc/search_bloc/search_bloc.dart';
 import '../bloc/search_detail_bloc/search_detail_bloc.dart';
 
 class SearchDetailPage extends StatefulWidget {
@@ -31,10 +33,19 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
       appBar: AppBar(
         title: const Text("स्थानीय तहको निर्वाचन २०७९"),
       ),
-      body: BlocProvider(
-        create: (searchoptionscontext) => SearchDetailBloc(
-            getIt<GetHomePageDataUseCase>(), getIt<GetSearchPageDataUseCase>())
-          ..add(SearchDetailEvent.loadSearchOptions()),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => SearchDetailBloc(
+                getIt<GetHomePageDataUseCase>(),
+                getIt<GetSearchPageDataUseCase>())
+              ..add(SearchDetailEvent.loadSearchOptions()),
+          ),
+          BlocProvider(
+            create: (searchContext) =>
+                SearchBloc(getIt<GetSearchPageDataUseCase>()),
+          ),
+        ],
         child: BlocConsumer<SearchDetailBloc, SearchDetailState>(
           listener: (context, state) {
             state.map(
@@ -102,42 +113,53 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
 
                   //Search province, district and municipality list
 
-                  return ListView(
+                  return Column(
                     children: [
-                      buildPradeshDropDown(provinces: provinces),
-                      buildDistrictDropDownList(
-                          districts:
-                              selectedProvinceId == null ? [] : districts,
-                          provinceId: selectedProvinceId),
-                      buildMunicipalityDropDownList(
-                          municipalities:
-                              selectedDistrictId == null ? [] : municipalities,
-                          districtId: selectedDistrictId),
-                      TextButton(
-                          onPressed: selectedMunicipalityId == null
-                              ? null
-                              : () async {
-                                  BlocProvider.of<SearchDetailBloc>(
-                                          buildcontext)
-                                      .add(SearchDetailEvent.loadSearchData(
+                      ListView(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: [
+                          buildPradeshDropDown(
+                            provinces: provinces,
+                          ),
+                          buildDistrictDropDownList(
+                              districts:
+                                  selectedProvinceId == null ? [] : districts,
+                              provinceId: selectedProvinceId),
+                          buildMunicipalityDropDownList(
+                              municipalities: selectedDistrictId == null
+                                  ? []
+                                  : municipalities,
+                              districtId: selectedDistrictId),
+                          TextButton(
+                              onPressed: selectedMunicipalityId == null
+                                  ? null
+                                  : () async {
+                                      BlocProvider.of<SearchDetailBloc>(
+                                        buildcontext,
+                                      ).add(SearchDetailEvent.loadSearchData(
                                           palikaId:
                                               selectedMunicipalityId ?? 0));
-                                },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                "खोज्नुहोस्",
-                              ),
-                              SizedBox(width: 8),
-                              Icon(Icons.search, color: Colors.white)
-                            ],
-                          )),
+                                    },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                    "खोज्नुहोस्",
+                                  ),
+                                  SizedBox(width: 8),
+                                  Icon(Icons.search, color: Colors.white)
+                                ],
+                              )),
+                        ],
+                      ),
                     ],
                   );
                 },
-                searchDataLoading: (s) =>
-                    const Center(child: CircularProgressIndicator()),
+                searchDataLoading: (s) {
+                  return const Center(child: CircularProgressIndicator());
+                  //  BlocProvider.of<SearchDetailBloc>(context).add(SearchDetailEvent.loadSearchOptions());
+                },
                 searchDataLoadFailure: (s) => Center(
                       child: Column(
                         children: [
@@ -149,32 +171,183 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                       ),
                     ),
                 searchDataLoadSuccess: (s) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              s.searchDataResponseModel.data[0]
-                                  .municipalityName,
-                              style: const TextStyle(fontSize: 25),
-                            ),
-                          ],
-                        ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: s.searchDataResponseModel.data.length,
-                          itemBuilder: (context, index) {
-                            return candidateCardFrom(
-                                candidate:
-                                    s.searchDataResponseModel.data[index]);
-                          },
-                        ),
-                      ],
-                    ),
-                  );
+                  return BlocProvider(
+                      create: (_) =>
+                          SearchBloc(getIt<GetSearchPageDataUseCase>())
+                            ..add(SearchEvent.loadSearchedData(
+                                palikaId: selectedMunicipalityId ?? 0)),
+                      child: BlocBuilder<SearchBloc, SearchState>(
+                        builder: (searchContext, state) {
+                          return Column(
+                            children: [
+                              BlocBuilder<HomeBloc, HomeState>(
+                                builder: (context, state) {
+                                  return state.map(
+                                      initial: (s) => const Center(
+                                          child: CircularProgressIndicator()),
+                                      loading: (s) => const Center(
+                                          child: CircularProgressIndicator()),
+                                      loadSuccess: (s) {
+                                        final provinceFromResponse = s
+                                                .homepageresponsedata!.items
+                                                ?.where((element) =>
+                                                    element.type ==
+                                                    ItemType.PRADESH) ??
+                                            [];
+                                        final districtsFromResponse = s
+                                                .homepageresponsedata!.items
+                                                ?.where((element) =>
+                                                    element.type ==
+                                                    ItemType.DISTRICT) ??
+                                            [];
+                                        final municipalitiesFromResponse = s
+                                                .homepageresponsedata!.items
+                                                ?.where((element) =>
+                                                    element.type ==
+                                                    ItemType.MUNICIPALITY) ??
+                                            [];
+                                        List<PradeshName>? provinces = [];
+                                        List<DistrictsName>? districts = [];
+                                        List<MunicipalityName>? municipalities =
+                                            [];
+
+                                        if (provinceFromResponse.isNotEmpty) {
+                                          provinces = provinceFromResponse
+                                              .first.data
+                                              .cast<Map<String, dynamic>>()
+                                              .map((e) =>
+                                                  PradeshName.fromJson(e))
+                                              .toList();
+                                        }
+                                        if (districtsFromResponse.isNotEmpty) {
+                                          final districtMaps =
+                                              districtsFromResponse.first.data
+                                                  .cast<Map<String, dynamic>>();
+
+                                          districts = districtMaps.map((e) {
+                                            // debugPrint(e.toString());
+                                            return DistrictsName.fromJson(e);
+                                          }).toList();
+                                        }
+                                        if (municipalitiesFromResponse
+                                            .isNotEmpty) {
+                                          municipalities =
+                                              municipalitiesFromResponse
+                                                  .first.data
+                                                  .cast<Map<String, dynamic>>()
+                                                  .map((e) =>
+                                                      MunicipalityName.fromJson(
+                                                          e))
+                                                  .toList();
+                                        }
+
+                                        //Search province, district and municipality list
+
+                                        return Column(
+                                          children: [
+                                            ListView(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  NeverScrollableScrollPhysics(),
+                                              children: [
+                                                buildPradeshDropDown(
+                                                  provinces: provinces,
+                                                ),
+                                                buildDistrictDropDownList(
+                                                    districts:
+                                                        selectedProvinceId ==
+                                                                null
+                                                            ? []
+                                                            : districts,
+                                                    provinceId:
+                                                        selectedProvinceId),
+                                                buildMunicipalityDropDownList(
+                                                    municipalities:
+                                                        selectedDistrictId ==
+                                                                null
+                                                            ? []
+                                                            : municipalities,
+                                                    districtId:
+                                                        selectedDistrictId),
+                                                TextButton(
+                                                    onPressed:
+                                                        selectedMunicipalityId ==
+                                                                null
+                                                            ? null
+                                                            : () async {
+                                                                BlocProvider.of<
+                                                                    SearchDetailBloc>(
+                                                                  buildcontext,
+                                                                ).add(SearchDetailEvent
+                                                                    .loadSearchData(
+                                                                        palikaId:
+                                                                            selectedMunicipalityId ??
+                                                                                0));
+                                                              },
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: const [
+                                                        Text(
+                                                          "खोज्नुहोस्",
+                                                        ),
+                                                        SizedBox(width: 8),
+                                                        Icon(Icons.search,
+                                                            color: Colors.white)
+                                                      ],
+                                                    )),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                      loadFailure: (s) => Text("failure"));
+                                },
+                              ),
+                              Expanded(
+                                  child: state.map(
+                                searchLoading: (s) =>
+                                    const CircularProgressIndicator(),
+                                searchLoadSuccess: (_) {
+                                  return SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              s.searchDataResponseModel.data[0]
+                                                  .municipalityName,
+                                              style:
+                                                  const TextStyle(fontSize: 25),
+                                            ),
+                                          ],
+                                        ),
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          itemCount: s.searchDataResponseModel
+                                              .data.length,
+                                          itemBuilder: (context, index) {
+                                            return candidateCardFrom(
+                                                candidate: s
+                                                    .searchDataResponseModel
+                                                    .data[index]);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                searchLoadFailure: (_) => Text("Failure"),
+                              )),
+                            ],
+                          );
+                        },
+                      ));
                 });
           },
         ),

@@ -232,8 +232,8 @@ Widget buildContestedCandidateRow(Candidate candidate,
               const SizedBox(width: 16),
               Text(
                   showWinner
-                      ? "${candidate.winnerCanditate} - ${candidate.winnerVoteCount} मत"
-                      : "${candidate.runnerUpCanditate} - ${candidate.runnerUpVoteCount} मत",
+                      ? "${candidate.winnerCanditate} - ${getNeapliCharacter(candidate.winnerVoteCount ?? 0)} मत"
+                      : "${candidate.runnerUpCanditate} - ${getNeapliCharacter(candidate.runnerUpVoteCount ?? 0)} मत",
                   style: const TextStyle(fontSize: 20)),
             ],
           ),
@@ -243,7 +243,44 @@ Widget buildContestedCandidateRow(Candidate candidate,
   );
 }
 
-String getCharacter(int number) {
-  //TODO: CONVERT INTEGER NUMBER TO NEPALI NUMBER
-  return "String";
+String getNeapliCharacter(int number) {
+  //CONVERT INTEGER NUMBER TO NEPALI NUMBER
+  String num = number.toString();
+  int len = num.length;
+  String nepaliNumber = '';
+  for (int i = 0; i < len; i++) {
+    switch (num[i]) {
+      case "1":
+        nepaliNumber = '$nepaliNumber१';
+        break;
+      case "2":
+        nepaliNumber = '$nepaliNumber२';
+        break;
+      case "3":
+        nepaliNumber = '$nepaliNumber३';
+        break;
+      case "4":
+        nepaliNumber = '$nepaliNumber४';
+        break;
+      case "5":
+        nepaliNumber = '$nepaliNumber५';
+        break;
+      case "6":
+        nepaliNumber = '$nepaliNumber६';
+        break;
+      case "7":
+        nepaliNumber = '$nepaliNumber७';
+        break;
+      case "8":
+        nepaliNumber = '$nepaliNumber८';
+        break;
+      case "9":
+        nepaliNumber = '$nepaliNumber९';
+        break;
+      default:
+        nepaliNumber = '$nepaliNumber०';
+    }
+  }
+  // forEach(, sideEffect)
+  return nepaliNumber;
 }

@@ -2,6 +2,7 @@ import 'package:election_app/features/home/presentation/pages/search_detail_page
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:election_app/features/home/presentation/widgets/search_view_widget.dart';
 
 import '../bloc/home_party_bloc/home_page_bloc.dart';
 
@@ -165,16 +166,15 @@ class PartyWiseDetail extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Center(
-                child: Text(s.homeWinnerPartyPagedata.data[index].winnerCount
-                    .toString()),
-              ),
+                  child: Text(getNeapliCharacter(
+                      s.homeWinnerPartyPagedata.data[index].winnerCount))),
             ),
 
             Expanded(
               flex: 1,
               child: Center(
-                child:
-                    Text(s.homeWinnerPartyPagedata.data[index].lead.toString()),
+                child: Text(getNeapliCharacter(
+                    s.homeWinnerPartyPagedata.data[index].lead)),
               ),
             ),
           ],

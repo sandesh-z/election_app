@@ -1,5 +1,6 @@
 import 'package:election_app/features/home/domain/entities/Canditate/candidate.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class ElectionStatus {
   static int electionNotStarted = -1;
@@ -11,7 +12,7 @@ Widget candidateCardFrom({required Candidate candidate}) {
   if (candidate.status == ElectionStatus.electionCompleted) {
     return buildElectedWidgetFrom(candidate: candidate);
   } else if (candidate.status == ElectionStatus.electionRunning) {
-    return const SizedBox();
+    return buildElectionRunningWidgetFrom(candidate);
   } else {
     return const SizedBox();
   }
@@ -19,6 +20,9 @@ Widget candidateCardFrom({required Candidate candidate}) {
 
 bool didCandidateWinUncontested(Candidate candidate) =>
     candidate.winnerVoteCount == -1;
+Widget buildElectionRunningWidgetFrom(Candidate candidate) {
+  return const SizedBox();
+}
 
 Widget buildElectedWidgetFrom({required Candidate candidate}) {
   if (didCandidateWinUncontested(candidate)) {
@@ -60,8 +64,84 @@ Widget buildContestedElectedCandidateFrom({required Candidate candidate}) {
         const Divider(thickness: 2),
         buildContestedCandidateRow(candidate, false),
         const SizedBox(height: 8),
+        // buildUnelectedRow(candidate),
+        // buildUncontestedCandidateRow(candidate),
       ],
     ),
+  );
+}
+
+Widget buildUnelectedRow(Candidate candidate, [bool isWinner = true]) {
+  if (candidate.winnerVoteCount != null &&
+      candidate.runnerUpCanditate != null) {
+    double total = candidate.winnerVoteCount!.toDouble() +
+        candidate.runnerUpVoteCount!.toDouble();
+    double winnerBarPercentage = candidate.winnerVoteCount!.toDouble() / total;
+    double runnerUpBarPercentage =
+        candidate.runnerUpVoteCount!.toDouble() / total;
+  }
+  double total = 0.0;
+  total = candidate.winnerVoteCount!.toDouble() +
+      candidate.runnerUpVoteCount!.toDouble();
+  double winnerBarPercentage = candidate.winnerVoteCount!.toDouble() / total;
+  double runnerUpBarPercentage =
+      candidate.runnerUpVoteCount!.toDouble() / total;
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Row(
+        children: [
+          Container(
+            height: 30,
+            width: 30,
+            child: ClipRRect(
+              // borderRadius: 10.0,
+              child: isWinner
+                  ? Image.network(
+                      candidate.winnerPartyLogo != null
+                          ? "https://electionapi.truestreamz.com/media/${candidate.winnerPartyLogo}"
+                          : "https://via.placeholder.com/150",
+                      fit: BoxFit.fill)
+                  : Image.network(
+                      candidate.winnerPartyLogo != null
+                          ? "https://electionapi.truestreamz.com/media/${candidate.runnerUpPartyLogo}"
+                          : "https://via.placeholder.com/150",
+                      fit: BoxFit.fill),
+            ),
+          ),
+          Text(
+            isWinner
+                ? candidate.winnerPartyName
+                : candidate.runnerUpPartyName ?? "",
+            style: const TextStyle(fontSize: 20),
+          ),
+        ],
+      ),
+      Row(
+        children: [
+          const SizedBox(width: 16),
+          Text(
+              isWinner
+                  ? candidate.winnerCanditate
+                  : "${candidate.runnerUpCanditate}",
+              style: const TextStyle(fontSize: 20)),
+          Spacer(),
+          Text(
+              isWinner
+                  ? getNeapliCharacter(candidate.winnerVoteCount ?? 0)
+                  : getNeapliCharacter(candidate.runnerUpVoteCount ?? 0),
+              style: const TextStyle(fontSize: 20)),
+        ],
+      ),
+      LinearProgressIndicator(
+        //TODO: ASSIGN PARTY COLOR
+        backgroundColor: Colors.grey.shade200,
+        color: parseColor(candidate.partyColor ?? ""),
+        minHeight: 15,
+        value: isWinner ? winnerBarPercentage : runnerUpBarPercentage,
+      ),
+    ],
   );
 }
 
@@ -79,10 +159,12 @@ Widget buildUncontestedCandidateRow(Candidate candidate) {
               // CircleAvatar(child: Image.network("https://picsum.photos/25")),
               CircleAvatar(
                 child: ClipRRect(
-                  // borderRadius: 10.0,
-                  child: Image.network("https://picsum.photos/30",
-                      fit: BoxFit.fill),
-                ),
+                    // borderRadius: 10.0,
+                    child: Image.network(
+                        candidate.winnerPartyLogo != null
+                            ? "https://electionapi.truestreamz.com/media/${candidate.winnerPartyLogo}"
+                            : "https://via.placeholder.com/150",
+                        fit: BoxFit.fill)),
               ),
               Text(
                 candidate.winnerPartyName,
@@ -162,7 +244,7 @@ Widget buildContestedCandidateRow(Candidate candidate,
                               : "https://via.placeholder.com/150",
                           fit: BoxFit.fill)
                       : Image.network(
-                          candidate.winnerPartyLogo != null
+                          candidate.runnerUpPartyLogo != null
                               ? "https://electionapi.truestreamz.com/media/${candidate.runnerUpPartyLogo}"
                               : "https://via.placeholder.com/150",
                           fit: BoxFit.fill),
@@ -283,4 +365,12 @@ String getNeapliCharacter(int number) {
   }
   // forEach(, sideEffect)
   return nepaliNumber;
+}
+
+Color parseColor(String hexCode) {
+  String fullHexCode = "FF" + hexCode;
+
+  final colorCode = int.tryParse(fullHexCode, radix: 16) ?? 0xFF000000;
+
+  return Color(colorCode);
 }

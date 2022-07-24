@@ -91,12 +91,12 @@ Widget buildUnelectedRow(Candidate candidate, [bool isWinner = true]) {
               // borderRadius: 10.0,
               child: isWinner
                   ? Image.network(
-                      candidate.winnerPartyLogo != null
+                      candidate.winnerPartyLogo != ""
                           ? "https://electionapi.truestreamz.com/media/${candidate.winnerPartyLogo}"
                           : "https://via.placeholder.com/150",
                       fit: BoxFit.fill)
                   : Image.network(
-                      candidate.winnerPartyLogo != null
+                      candidate.winnerPartyLogo != ""
                           ? "https://electionapi.truestreamz.com/media/${candidate.runnerUpPartyLogo}"
                           : "https://via.placeholder.com/150",
                       fit: BoxFit.fill),
@@ -152,7 +152,7 @@ Widget buildUncontestedCandidateRow(Candidate candidate) {
                 child: ClipRRect(
                     // borderRadius: 10.0,
                     child: Image.network(
-                        candidate.winnerPartyLogo != null
+                        candidate.winnerPartyLogo != ""
                             ? "https://electionapi.truestreamz.com/media/${candidate.winnerPartyLogo}"
                             : "https://via.placeholder.com/150",
                         fit: BoxFit.fill)),
@@ -230,12 +230,12 @@ Widget buildContestedCandidateRow(Candidate candidate,
                   // borderRadius: 10.0,
                   child: showWinner
                       ? Image.network(
-                          candidate.winnerPartyLogo != null
+                          candidate.winnerPartyLogo != ""
                               ? "https://electionapi.truestreamz.com/media/${candidate.winnerPartyLogo}"
                               : "https://via.placeholder.com/150",
                           fit: BoxFit.fill)
                       : Image.network(
-                          candidate.runnerUpPartyLogo != null
+                          candidate.runnerUpPartyLogo != ""
                               ? "https://electionapi.truestreamz.com/media/${candidate.runnerUpPartyLogo}"
                               : "https://via.placeholder.com/150",
                           fit: BoxFit.fill),

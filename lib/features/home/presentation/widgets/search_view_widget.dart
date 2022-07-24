@@ -1,6 +1,5 @@
 import 'package:election_app/features/home/domain/entities/Canditate/candidate.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class ElectionStatus {
   static int electionNotStarted = -1;
@@ -20,6 +19,7 @@ Widget candidateCardFrom({required Candidate candidate}) {
 
 bool didCandidateWinUncontested(Candidate candidate) =>
     candidate.winnerVoteCount == -1;
+
 Widget buildElectionRunningWidgetFrom(Candidate candidate) {
   return const SizedBox();
 }
@@ -72,14 +72,6 @@ Widget buildContestedElectedCandidateFrom({required Candidate candidate}) {
 }
 
 Widget buildUnelectedRow(Candidate candidate, [bool isWinner = true]) {
-  if (candidate.winnerVoteCount != null &&
-      candidate.runnerUpCanditate != null) {
-    double total = candidate.winnerVoteCount!.toDouble() +
-        candidate.runnerUpVoteCount!.toDouble();
-    double winnerBarPercentage = candidate.winnerVoteCount!.toDouble() / total;
-    double runnerUpBarPercentage =
-        candidate.runnerUpVoteCount!.toDouble() / total;
-  }
   double total = 0.0;
   total = candidate.winnerVoteCount!.toDouble() +
       candidate.runnerUpVoteCount!.toDouble();
@@ -135,7 +127,6 @@ Widget buildUnelectedRow(Candidate candidate, [bool isWinner = true]) {
         ],
       ),
       LinearProgressIndicator(
-        //TODO: ASSIGN PARTY COLOR
         backgroundColor: Colors.grey.shade200,
         color: parseColor(candidate.partyColor ?? ""),
         minHeight: 15,

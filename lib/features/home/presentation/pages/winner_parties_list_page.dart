@@ -96,6 +96,7 @@ class PartyWiseDetail extends StatelessWidget {
                               .toList(),
                           xValueMapper: (ChartData data, _) => data.x,
                           yValueMapper: (ChartData data, _) => data.y,
+
                           // radius: '50%',
                           // dataLabelSettings:
                           //     const DataLabelSettings(isVisible: true)
@@ -147,9 +148,9 @@ class PartyWiseDetail extends StatelessWidget {
   Card buildCard(s, int index) {
     Color cardColor;
     if (index % 2 == 0) {
-      cardColor = Colors.green.shade100;
+      cardColor = Colors.white;
     } else {
-      cardColor = Colors.cyan.shade100;
+      cardColor = Colors.grey.shade100;
     }
     return Card(
         color: cardColor,
@@ -159,7 +160,27 @@ class PartyWiseDetail extends StatelessWidget {
           children: [
             Expanded(
               flex: 4,
-              child: Text(s.homeWinnerPartyPagedata.data[index].partyName),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Image.network(s.homeWinnerPartyPagedata.data[index]
+                                  .partyLogo !=
+                              ""
+                          ? "https://electionapi.truestreamz.com/media/${s.homeWinnerPartyPagedata.data[index].partyLogo}"
+                          : "https://via.placeholder.com/150"),
+                    ),
+                  ),
+                  // const SizedBox(width: 5),
+                  Expanded(
+                      flex: 4,
+                      child: Text(
+                          s.homeWinnerPartyPagedata.data[index].partyName)),
+                ],
+              ),
             ),
 
             // Spacer(),

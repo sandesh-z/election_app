@@ -1,4 +1,6 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:election_app/features/home/domain/usecases/get_homepage_data_usecase.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +13,12 @@ import 'injection.dart';
 
 void main() {
   configureDependencies();
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(), // Wrap your app
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

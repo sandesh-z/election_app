@@ -21,13 +21,14 @@ class SearchDetailPage extends StatefulWidget {
 }
 
 class _SearchDetailPageState extends State<SearchDetailPage> {
-  int? districtprovinceId;
+  // int? districtprovinceId;
 
   int? selectedProvinceId, selectedDistrictId, selectedMunicipalityId;
 
   final GlobalKey<FormFieldState> _districtKey = GlobalKey<FormFieldState>(),
       _municipalityKey = GlobalKey<FormFieldState>(),
       _provinceKey = GlobalKey<FormFieldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

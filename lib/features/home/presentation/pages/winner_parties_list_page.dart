@@ -69,7 +69,7 @@ class PartyWiseDetail extends StatelessWidget {
                 ),
               );
             }, loadSuccess: (s) {
-              List<Color> partyColors = const [];
+              // List<Color> partyColors = const [];
 
               for (int i = 0; i < 15; i++) {
                 // partyColors.add();
@@ -130,7 +130,7 @@ class PartyWiseDetail extends StatelessWidget {
                     ]),
                     ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: s.homeWinnerPartyPagedata.data.length,
                         itemBuilder: (BuildContext context, int index) {
                           return buildCard(s, index);

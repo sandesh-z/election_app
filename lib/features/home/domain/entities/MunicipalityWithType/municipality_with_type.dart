@@ -12,7 +12,7 @@ class MunicipalityWithType extends Equatable {
 
   @JsonKey(name: "data")
   final List<MunicipalityName> data;
-  MunicipalityWithType({
+  const MunicipalityWithType({
     required this.type,
     required this.data,
   });

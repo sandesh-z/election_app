@@ -13,7 +13,7 @@ class PradeshWithType extends Equatable {
 
   @JsonKey(name: "data")
   final List<PradeshName> data;
-  PradeshWithType({
+  const PradeshWithType({
     required this.type,
     required this.data,
   });

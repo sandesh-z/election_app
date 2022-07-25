@@ -18,7 +18,7 @@ class RemotePartyDetailDataSoruceImpl extends RemotePartyDetailDataSoruce {
           await dioClient.client.get('/party_wise_vote/get_party_wise_details');
 
       partyDetailResponse = WinnerPartyDetailList.fromJson(response.data);
-      print('Party-Wise-Details: ${partyDetailResponse}');
+      print('Party-Wise-Details: $partyDetailResponse');
       return partyDetailResponse;
     } on DioError catch (e) {
       // The request was made and the server responded with a status code

@@ -3,7 +3,6 @@ import 'package:election_app/core/exceptions/exceptions.dart';
 import 'package:election_app/core/usecases/dio_client.dart';
 import 'package:election_app/features/home/data/data_source/remote_pradesh_data.dart';
 import 'package:election_app/features/home/domain/entities/HomeResponse/home_response.dart';
-import 'package:flutter/rendering.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: RemotePradeshNameDataSource)
@@ -22,7 +21,7 @@ class RemoteDataSourceImpl extends RemotePradeshNameDataSource {
 
       print(map);
       homeResponse = HomeResponse.fromJson(map);
-      print('SingleTypeResponse Info: ${homeResponse}');
+      print('SingleTypeResponse Info: $homeResponse');
 
       return homeResponse;
     } on DioError catch (e) {

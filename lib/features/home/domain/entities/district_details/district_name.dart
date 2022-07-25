@@ -17,7 +17,7 @@ class DistrictsName extends Equatable {
 
   @JsonKey(name: "ProvinceId")
   final int pradeshId;
-  DistrictsName({
+  const DistrictsName({
     required this.districtId,
     required this.districtName,
     this.districtEn,

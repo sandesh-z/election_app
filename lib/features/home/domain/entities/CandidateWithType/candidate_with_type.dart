@@ -10,7 +10,7 @@ class CandidateWithType extends Equatable {
   @JsonKey(name: "data")
   final List<Candidate> data;
 
-  CandidateWithType({
+  const CandidateWithType({
     required this.data,
   });
 

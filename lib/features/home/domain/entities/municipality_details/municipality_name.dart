@@ -18,7 +18,7 @@ class MunicipalityName extends Equatable {
   @JsonKey(name: "DistrictId")
   final int districtId;
 
-  MunicipalityName({
+  const MunicipalityName({
     required this.municipalityId,
     required this.municipalityName,
     required this.palikaType,

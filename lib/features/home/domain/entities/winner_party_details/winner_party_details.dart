@@ -23,7 +23,7 @@ class WinnerPartyDetail extends Equatable {
 
   @JsonKey(name: "lead")
   final int lead;
-  WinnerPartyDetail({
+  const WinnerPartyDetail({
     required this.partyId,
     required this.partyName,
     this.partyColor,

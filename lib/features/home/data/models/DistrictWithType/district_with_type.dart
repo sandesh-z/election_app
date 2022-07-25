@@ -6,7 +6,7 @@ part 'district_with_type.g.dart';
 
 @JsonSerializable()
 class DistrictWithTypeModel extends DistrictWithType {
-  DistrictWithTypeModel({
+  const DistrictWithTypeModel({
     required String type,
     required List<DistrictsName> data,
   }) : super(type: type, data: data);
@@ -14,5 +14,6 @@ class DistrictWithTypeModel extends DistrictWithType {
   factory DistrictWithTypeModel.fromJson(Map<String, dynamic> json) =>
       _$DistrictWithTypeModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$DistrictWithTypeModelToJson(this);
 }

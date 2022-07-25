@@ -22,7 +22,7 @@ class RemoteSearchListDataSourceImpl extends RemoteSearchListDataSource {
       );
 
       searchResponse = CandidateWithType.fromJson(response.data);
-      print('SingleTypeResponse Info: ${searchResponse}');
+      print('SingleTypeResponse Info: $searchResponse');
 
       return searchResponse;
     } on DioError catch (e) {

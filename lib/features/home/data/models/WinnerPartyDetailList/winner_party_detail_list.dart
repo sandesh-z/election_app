@@ -7,11 +7,12 @@ part 'winner_party_detail_list.g.dart';
 
 @JsonSerializable()
 class WinnerPartyDetailListModel extends WinnerPartyDetailList {
-  WinnerPartyDetailListModel({required List<WinnerPartyDetail> data})
+  const WinnerPartyDetailListModel({required List<WinnerPartyDetail> data})
       : super(data: data);
 
   factory WinnerPartyDetailListModel.fromJson(Map<String, dynamic> json) =>
       _$WinnerPartyDetailListModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$WinnerPartyDetailListModelToJson(this);
 }

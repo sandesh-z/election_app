@@ -84,7 +84,7 @@ Widget buildUnelectedRow(Candidate candidate, [bool isWinner = true]) {
     children: [
       Row(
         children: [
-          Container(
+          SizedBox(
             height: 30,
             width: 30,
             child: ClipRRect(
@@ -118,7 +118,7 @@ Widget buildUnelectedRow(Candidate candidate, [bool isWinner = true]) {
                   ? candidate.winnerCanditate
                   : "${candidate.runnerUpCanditate}",
               style: const TextStyle(fontSize: 20)),
-          Spacer(),
+          const Spacer(),
           Text(
               isWinner
                   ? getNeapliCharacter(candidate.winnerVoteCount ?? 0)
@@ -223,7 +223,7 @@ Widget buildContestedCandidateRow(Candidate candidate,
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(width: 8),
-              Container(
+              SizedBox(
                 height: 30,
                 width: 30,
                 child: ClipRRect(
@@ -359,7 +359,7 @@ String getNeapliCharacter(int number) {
 }
 
 Color parseColor(String hexCode) {
-  String fullHexCode = "FF" + hexCode;
+  String fullHexCode = "FF$hexCode";
 
   final colorCode = int.tryParse(fullHexCode, radix: 16) ?? 0xFF000000;
 

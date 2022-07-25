@@ -48,7 +48,7 @@ class Candidate extends Equatable {
   @JsonKey(name: "modified_at")
   final String? modifiedDate;
 
-  Candidate({
+  const Candidate({
     required this.status,
     required this.municipalityName,
     required this.winnerPartyName,

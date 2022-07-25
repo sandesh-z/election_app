@@ -9,11 +9,7 @@ class HomeResponse extends Equatable {
   @JsonKey(name: "data")
   final List<ItemWithType>? items;
 
-  // @JsonKey(name: "data")
-
-  // @JsonKey(name: "data")
-
-  HomeResponse({
+  const HomeResponse({
     required this.items,
   });
 

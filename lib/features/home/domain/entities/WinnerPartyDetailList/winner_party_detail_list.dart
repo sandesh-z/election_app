@@ -11,7 +11,7 @@ class WinnerPartyDetailList extends Equatable {
   @JsonKey(name: "data")
   final List<WinnerPartyDetail> data;
 
-  WinnerPartyDetailList({
+  const WinnerPartyDetailList({
     required this.data,
   });
 

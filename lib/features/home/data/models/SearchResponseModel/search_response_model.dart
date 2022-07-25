@@ -6,11 +6,12 @@ part 'search_response_model.g.dart';
 
 @JsonSerializable()
 class SearchResponseModel extends CandidateWithType {
-  SearchResponseModel({
+  const SearchResponseModel({
     required List<Candidate> data,
   }) : super(data: data);
 
   factory SearchResponseModel.fromJson(Map<String, dynamic> json) =>
       _$SearchResponseModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$SearchResponseModelToJson(this);
 }

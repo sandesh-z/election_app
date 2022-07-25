@@ -6,7 +6,7 @@ part 'home_response_model.g.dart';
 
 @JsonSerializable()
 class HomeResponseModel extends HomeResponse {
-  HomeResponseModel({
+  const HomeResponseModel({
     required List<ItemWithType>? items,
   }) : super(
           items: items,
@@ -14,5 +14,6 @@ class HomeResponseModel extends HomeResponse {
 
   factory HomeResponseModel.fromJson(Map<String, dynamic> json) =>
       _$HomeResponseModelFromJson(json);
+  @override
   Map<String, dynamic> toJson() => _$HomeResponseModelToJson(this);
 }

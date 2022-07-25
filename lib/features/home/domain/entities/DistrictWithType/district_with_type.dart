@@ -11,7 +11,7 @@ class DistrictWithType extends Equatable {
 
   @JsonKey(name: "data")
   final List<DistrictsName> data;
-  DistrictWithType({
+  const DistrictWithType({
     required this.type,
     required this.data,
   });

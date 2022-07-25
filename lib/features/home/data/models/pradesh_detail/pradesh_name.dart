@@ -6,7 +6,7 @@ part 'pradesh_name.g.dart';
 
 @JsonSerializable()
 class PradeshDetailModel extends PradeshName {
-  PradeshDetailModel({
+  const PradeshDetailModel({
     required int pradeshId,
     required String pradeshName,
     required String provinceEn,
@@ -20,5 +20,6 @@ class PradeshDetailModel extends PradeshName {
   factory PradeshDetailModel.fromJson(Map<String, dynamic> json) =>
       _$PradeshDetailModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$PradeshDetailModelToJson(this);
 }

@@ -5,7 +5,7 @@ part 'municipality_name.g.dart';
 
 @JsonSerializable()
 class MunicipalityDetailModel extends MunicipalityName {
-  MunicipalityDetailModel({
+  const MunicipalityDetailModel({
     required int districtId,
     required int municipalityId,
     required String municipalityName,
@@ -19,5 +19,6 @@ class MunicipalityDetailModel extends MunicipalityName {
   factory MunicipalityDetailModel.fromJson(Map<String, dynamic> json) =>
       _$MunicipalityDetailModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$MunicipalityDetailModelToJson(this);
 }

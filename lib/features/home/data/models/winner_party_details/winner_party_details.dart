@@ -5,7 +5,7 @@ part 'winner_party_details.g.dart';
 
 @JsonSerializable()
 class WinnerPartyDetailModel extends WinnerPartyDetail {
-  WinnerPartyDetailModel({
+  const WinnerPartyDetailModel({
     required int partyId,
     required String partyName,
     required String? partyColor,
@@ -22,5 +22,6 @@ class WinnerPartyDetailModel extends WinnerPartyDetail {
   factory WinnerPartyDetailModel.fromJson(Map<String, dynamic> json) =>
       _$WinnerPartyDetailModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$WinnerPartyDetailModelToJson(this);
 }

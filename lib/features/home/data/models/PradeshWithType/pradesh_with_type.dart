@@ -7,7 +7,7 @@ part 'pradesh_with_type.g.dart';
 
 @JsonSerializable()
 class PradeshWithTypeModel extends PradeshWithType {
-  PradeshWithTypeModel({
+  const PradeshWithTypeModel({
     required String type,
     required List<PradeshName> data,
   }) : super(type: type, data: data);
@@ -15,5 +15,6 @@ class PradeshWithTypeModel extends PradeshWithType {
   factory PradeshWithTypeModel.fromJson(Map<String, dynamic> json) =>
       _$PradeshWithTypeModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$PradeshWithTypeModelToJson(this);
 }

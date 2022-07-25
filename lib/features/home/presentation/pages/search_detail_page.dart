@@ -119,7 +119,7 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                     children: [
                       ListView(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         children: [
                           buildPradeshDropDown(
                             provinces: provinces,
@@ -251,7 +251,7 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                                             ListView(
                                               shrinkWrap: true,
                                               physics:
-                                                  NeverScrollableScrollPhysics(),
+                                                  const NeverScrollableScrollPhysics(),
                                               children: [
                                                 buildPradeshDropDown(
                                                   provinces: provinces,
@@ -334,7 +334,7 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                                         ListView.builder(
                                           shrinkWrap: true,
                                           physics:
-                                              NeverScrollableScrollPhysics(),
+                                              const NeverScrollableScrollPhysics(),
                                           itemCount: s.searchDataResponseModel
                                               .data.length,
                                           itemBuilder: (context, index) {
@@ -348,7 +348,7 @@ class _SearchDetailPageState extends State<SearchDetailPage> {
                                     ),
                                   );
                                 },
-                                searchLoadFailure: (_) => Text("Failure"),
+                                searchLoadFailure: (_) => const Text("Failure"),
                               )),
                             ],
                           );

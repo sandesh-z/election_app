@@ -11,7 +11,7 @@ class ItemWithType extends Equatable {
 
   @JsonKey(name: "data")
   final List<dynamic> data;
-  ItemWithType({
+  const ItemWithType({
     required this.type,
     required this.data,
   });
